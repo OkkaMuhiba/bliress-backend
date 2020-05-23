@@ -1,7 +1,7 @@
 package com.blibli.future.phase2.controller;
 
-import com.blibli.future.phase2.command.auth.CreateUserCommand;
 import com.blibli.future.phase2.command.auth.LoginCommand;
+import com.blibli.future.phase2.command.auth.impl.CreateUserCommandImpl;
 import com.blibli.future.phase2.model.command.CreateUserRequest;
 import com.blibli.future.phase2.model.command.LoginRequest;
 import com.blibli.future.phase2.model.response.CreateUserResponse;
@@ -28,7 +28,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public Mono<Response<CreateUserResponse>> registerUser(@RequestBody CreateUserRequest request){
-        return commandExecutor.execute(CreateUserCommand.class, request)
+        return commandExecutor.execute(CreateUserCommandImpl.class, request)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
@@ -36,7 +36,7 @@ public class AuthController {
     @PostMapping("/login")
     public Mono<Response<LoginResponse>> login(@RequestBody LoginRequest request){
         return commandExecutor.execute(LoginCommand.class, request)
-                .map(response -> (response.getToken() != "" ? ResponseHelper.ok(response) : ResponseHelper.status(HttpStatus.BAD_REQUEST, response)))
+                .map(response -> ((response.getToken() == null) ? ResponseHelper.status(HttpStatus.BAD_REQUEST, response) : ResponseHelper.ok(response)))
                 .subscribeOn(Schedulers.elastic());
     }
 }

@@ -22,10 +22,10 @@ public class CustomPasswordEncoder implements PasswordEncoder {
     private Integer keylength;
 
     @Override
-    public String encode(CharSequence charSequence) {
+    public String encode(CharSequence cs) {
         try {
             byte[] result = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512")
-                    .generateSecret(new PBEKeySpec(charSequence.toString().toCharArray(), secret.getBytes(), iteration, keylength))
+                    .generateSecret(new PBEKeySpec(cs.toString().toCharArray(), secret.getBytes(), iteration, keylength))
                     .getEncoded();
             return Base64.getEncoder().encodeToString(result);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
@@ -34,7 +34,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
     }
 
     @Override
-    public boolean matches(CharSequence charSequence, String s) {
-        return encode(charSequence).equals(s);
+    public boolean matches(CharSequence cs, String string) {
+        return encode(cs).equals(string);
     }
 }

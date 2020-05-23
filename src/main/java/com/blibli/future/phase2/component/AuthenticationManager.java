@@ -20,6 +20,7 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
+    @SuppressWarnings("unchecked")
     public Mono<Authentication> authenticate(Authentication authentication) {
         String authToken = authentication.getCredentials().toString();
 
@@ -36,7 +37,6 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
             for (String rolemap : rolesMap) {
                 roles.add(Role.valueOf(rolemap));
             }
-
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
