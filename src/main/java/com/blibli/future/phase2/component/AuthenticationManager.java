@@ -1,6 +1,6 @@
 package com.blibli.future.phase2.component;
 
-import com.blibli.future.phase2.entity.Role;
+import com.blibli.future.phase2.entity.enumerate.Role;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;

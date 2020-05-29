@@ -1,7 +1,7 @@
 package com.blibli.future.phase2.command.auth.impl;
 
 import com.blibli.future.phase2.command.auth.CreateUserCommand;
-import com.blibli.future.phase2.entity.Role;
+import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.CreateUserRequest;
 import com.blibli.future.phase2.model.response.CreateUserResponse;
