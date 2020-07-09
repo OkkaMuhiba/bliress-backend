@@ -1,24 +1,24 @@
 package com.blibli.future.phase2.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Set;
-
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document
-public class Quiz {
+public class Batch {
     @Id
     private String id;
 
-    private String trainingId;
+    private String batchName;
 
-    private String theoryId;
+    private String month;
 
-    private Set<Question> questions;
+    private String year;
 }

@@ -1,23 +1,26 @@
 package com.blibli.future.phase2.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.BSONTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document
-public class TrainingAbsence {
+public class TrainingMaterial {
     @Id
     private String id;
 
-    private TrainingSchedule trainingSchedule;
+    private String batchName;
 
-    private User user;
+    private Integer stage;
 
-    private BSONTimestamp absenceAt;
+    private String materialName;
+
+    private String file;
 }

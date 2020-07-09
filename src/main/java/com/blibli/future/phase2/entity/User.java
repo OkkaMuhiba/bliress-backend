@@ -1,7 +1,6 @@
 package com.blibli.future.phase2.entity;
 
 import com.blibli.future.phase2.entity.enumerate.Division;
-import com.blibli.future.phase2.entity.enumerate.Phase;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,13 +35,23 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private Division division;
-
-    private Phase phase;
-
     private Set<Role> roles;
 
     private Boolean enabled;
+
+    private Division division;
+
+    private String phoneNumber;
+
+    private String gender;
+
+    private String batch;
+
+    private Integer stage;
+
+    private Date birthDate;
+
+    private Timestamp registeredAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

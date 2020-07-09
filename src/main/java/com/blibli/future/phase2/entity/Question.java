@@ -1,22 +1,20 @@
 package com.blibli.future.phase2.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Set;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
 public class Question {
-    @Id
-    private String id;
+    private String questionDesc;
 
-    private String description;
+    private Set<String> questions;
 
-    private Answer answer;
-
-    private Character correct;
+    private Integer correctAnswer;
 }
