@@ -7,7 +7,6 @@ import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.LoginRequest;
 import com.blibli.future.phase2.model.response.LoginResponse;
 import com.blibli.future.phase2.repository.UserRepository;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,7 @@ public class LoginCommandImpl implements LoginCommand {
 
     private Mono<User> findUserByUsername(String username){
         return userRepository.findByUsername(username)
-                .switchIfEmpty(Mono.error(new NotFoundException("No user account was found with email: " + username)));
+                .switchIfEmpty(Mono.error(new Exception("No user account was found with email: " + username)));
     }
 
     private LoginResponse createResponse(String token, String message){

@@ -7,7 +7,6 @@ import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.LoginRequest;
 import com.blibli.future.phase2.model.response.LoginResponse;
 import com.blibli.future.phase2.repository.UserRepository;
-import javassist.NotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,7 +89,7 @@ public class LoginCommandImplTest {
                 .build();
 
         given(userRepository.findByUsername(request.getUsername()))
-                .willReturn(Mono.error(new NotFoundException("No user account was found with email: " + request.getUsername())));
+                .willReturn(Mono.error(new Exception("No user account was found with email: " + request.getUsername())));
 
         given(passwordEncoder.encode(request.getPassword()))
                 .willReturn(request.getPassword());

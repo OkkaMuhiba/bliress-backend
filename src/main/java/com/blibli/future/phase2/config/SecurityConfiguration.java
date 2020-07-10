@@ -21,6 +21,13 @@ public class SecurityConfiguration {
     @Autowired
     private SecurityContextRepository securityContextRepository;
 
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
+
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
         return http
@@ -44,8 +51,11 @@ public class SecurityConfiguration {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/login").permitAll()
-                .anyExchange().authenticated()
+                .pathMatchers(AUTH_WHITELIST).permitAll()
+                .pathMatchers("/api/auth/login").permitAll()
+                .anyExchange().denyAll()
                 .and().build();
     }
+
+
 }
