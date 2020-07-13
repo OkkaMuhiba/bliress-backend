@@ -52,7 +52,8 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeExchange()
                 .pathMatchers(AUTH_WHITELIST).permitAll()
-                .pathMatchers("/api/auth/login").permitAll()
+                .pathMatchers("/api/admin/**").hasRole("ADMIN")
+                .pathMatchers("/api/auth/**").permitAll()
                 .anyExchange().denyAll()
                 .and().build();
     }

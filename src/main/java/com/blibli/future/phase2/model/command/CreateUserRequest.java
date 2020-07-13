@@ -15,11 +15,9 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class CreateUserRequest {
     @NotBlank
-    @Length(min = 8, max = 16)
     private String username;
 
     @NotBlank
-    @Length(min = 8)
     private String password;
 
     @NotBlank

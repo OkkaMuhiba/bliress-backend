@@ -12,9 +12,9 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 public class LoginRequest {
-    @NotBlank
+    @NotBlank(message = "Username is not filled")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Password is not filled")
     private String password;
 }

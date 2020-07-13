@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateBatchResponse {
+public class DeleteBatchResponse {
     private HttpStatus status;
 
     private String message;

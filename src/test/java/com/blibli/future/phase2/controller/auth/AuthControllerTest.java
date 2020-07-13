@@ -1,6 +1,8 @@
-package com.blibli.future.phase2.controller;
+package com.blibli.future.phase2.controller.auth;
 
 import com.blibli.future.phase2.command.auth.LoginCommand;
+import com.blibli.future.phase2.configuration.UserTokenProvider;
+import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.model.command.LoginRequest;
 import com.blibli.future.phase2.model.response.LoginResponse;
 import com.blibli.oss.command.CommandExecutor;
@@ -15,7 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -23,14 +27,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureWebTestClient
 public class AuthControllerTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    @MockBean
+    @MockBean(name = "commandExecutor")
     private CommandExecutor commandExecutor;
 
     private LoginRequest request;
@@ -58,7 +62,7 @@ public class AuthControllerTest {
         given(commandExecutor.execute(LoginCommand.class, request))
                 .willReturn(Mono.just(expectedResponse.getData()));
 
-        webTestClient.post().uri("/login")
+        webTestClient.post().uri("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(request), LoginRequest.class)
@@ -84,7 +88,7 @@ public class AuthControllerTest {
         given(commandExecutor.execute(LoginCommand.class, request))
                 .willReturn(Mono.just(expectedResponse.getData()));
 
-        webTestClient.post().uri("/login")
+        webTestClient.post().uri("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(request), LoginRequest.class)

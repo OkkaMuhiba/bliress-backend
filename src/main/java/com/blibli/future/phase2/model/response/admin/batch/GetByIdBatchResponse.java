@@ -1,17 +1,18 @@
 package com.blibli.future.phase2.model.response.admin.batch;
 
+import com.blibli.future.phase2.entity.Batch;
+import com.blibli.future.phase2.entity.Training;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateBatchResponse {
-    private HttpStatus status;
+public class GetByIdBatchResponse {
+    private Batch batch;
 
-    private String message;
+    private Training training;
 }
