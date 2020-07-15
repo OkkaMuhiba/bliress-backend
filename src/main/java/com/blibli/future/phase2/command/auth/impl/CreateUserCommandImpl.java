@@ -33,7 +33,7 @@ public class CreateUserCommandImpl implements CreateUserCommand {
 
     private User createUser(CreateUserRequest request){
         User user = User.builder()
-                .id(UUID.randomUUID().toString())
+                .userId(UUID.randomUUID().toString())
                 .build();
         BeanUtils.copyProperties(request, user);
 

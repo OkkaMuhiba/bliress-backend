@@ -45,7 +45,7 @@ public class CreateBatchCommandTest {
                 .build();
 
         Batch createdBatch = Batch.builder()
-                .id(UUID.randomUUID().toString())
+                .batchId(UUID.randomUUID().toString())
                 .batchName("JAN-2020")
                 .month("JANUARY")
                 .year("2020")

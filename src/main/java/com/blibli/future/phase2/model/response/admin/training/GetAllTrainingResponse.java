@@ -1,6 +1,6 @@
-package com.blibli.future.phase2.model.response.admin.batch;
+package com.blibli.future.phase2.model.response.admin.training;
 
-import com.blibli.future.phase2.entity.Batch;
+import com.blibli.future.phase2.entity.Training;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GetAllBatchResponse {
-    private Set<Batch> batchList;
+public class GetAllTrainingResponse {
+    private Set<Training> trainingList;
 }

@@ -17,7 +17,7 @@ import java.util.Date;
 @Document
 public class Training {
     @Id
-    private String id;
+    private String trainingId;
 
     private String batchName;
 
@@ -31,5 +31,5 @@ public class Training {
 
     private String location;
 
-    private User trainer;
+    private String trainer;
 }

@@ -16,7 +16,9 @@ public class TrainingAttendance {
     @Id
     private String id;
 
-    private String trainingId;
+    private String batchName;
+
+    private Integer stage;
 
     private String userId;
 

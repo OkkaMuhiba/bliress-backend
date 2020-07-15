@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Document
 public class User implements UserDetails {
     @Id
-    private String id;
+    private String userId;
 
     private String username;
 
