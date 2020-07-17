@@ -44,7 +44,7 @@ public class AuthControllerTest {
     public void setUp(){
         initMocks(this);
         request = LoginRequest.builder()
-                .username("testing1")
+                .usermail("testing1@mail.com")
                 .password("password")
                 .build();
         expectedResponse = Response.<LoginResponse>builder().build();

@@ -40,4 +40,17 @@ public class ApiPath {
     public static final String ADMIN_TRAINING_UPDATE = ADMIN_TRAINING + "/";
     public static final String ADMIN_TRAINING_DELETE = ADMIN_TRAINING + "/";
 
+    // Trainer
+    public static final String ADMIN_TRAINER = BASE_ADMIN + "/trainer";
+    public static final String ADMIN_TRAINER_CREATE = ADMIN_TRAINER + "";
+    public static final String ADMIN_TRAINER_GET_ALL = ADMIN_TRAINER + "";
+    public static final String ADMIN_TRAINER_GET_BY_ID = ADMIN_TRAINER + "/detail";
+    public static final String ADMIN_TRAINER_UPDATE = ADMIN_TRAINER + "";
+    public static final String ADMIN_TRAINER_DELETE = ADMIN_TRAINER + "";
+
+    // Employee
+    public static final String ADMIN_MATERIAL = BASE_ADMIN + "/material";
+    public static final String ADMIN_MATERIAL_CREATE = ADMIN_MATERIAL + "/";
+    public static final String ADMIN_MATERIAL_GET_ALL = ADMIN_MATERIAL + "/";
+    public static final String ADMIN_MATERIAL_DELETE = ADMIN_MATERIAL + "/";
 }

@@ -37,6 +37,7 @@ public class User implements UserDetails {
 
     private Set<Role> roles;
 
+    @JsonIgnore
     private Boolean enabled;
 
     private Division division;
@@ -53,26 +54,31 @@ public class User implements UserDetails {
 
     private Timestamp registeredAt;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream().map(authority -> new SimpleGrantedAuthority(authority.name())).collect(Collectors.toList());
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 public class LoginRequest {
-    @NotBlank(message = "Username is not filled")
-    private String username;
+    @NotBlank(message = "Mail is not filled")
+    private String usermail;
 
     @NotBlank(message = "Password is not filled")
     private String password;

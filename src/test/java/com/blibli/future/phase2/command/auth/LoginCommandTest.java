@@ -42,6 +42,7 @@ public class LoginCommandTest {
         initMocks(this);
         user = User.builder()
                 .username("testing1")
+                .usermail("testing1@mail.com")
                 .password("password")
                 .build();
 
@@ -58,14 +59,14 @@ public class LoginCommandTest {
 
     @Test
     void executeSuccess_test(){
-        given(userRepository.findByUsername(user.getUsername()))
+        given(userRepository.findByUsermail(user.getUsername()))
                 .willReturn(Mono.just(user));
 
         given(jwtTokenProvider.generateToken(user))
                 .willReturn("token");
 
         LoginRequest request = LoginRequest.builder()
-                .username("testing1")
+                .usermail("testing1@mail.com")
                 .password("password")
                 .build();
 
@@ -75,7 +76,7 @@ public class LoginCommandTest {
         LoginResponse result = loginCommand.execute(request).block();
 
         assertEquals(expectedSuccess, result);
-        verify(userRepository).findByUsername(request.getUsername());
+        verify(userRepository).findByUsermail(request.getUsermail());
     }
 
     @Test
@@ -84,12 +85,12 @@ public class LoginCommandTest {
                 .willReturn("token");
 
         LoginRequest request = LoginRequest.builder()
-                .username("testing11")
+                .usermail("testing11@mail.com")
                 .password("password")
                 .build();
 
-        given(userRepository.findByUsername(request.getUsername()))
-                .willReturn(Mono.error(new Exception("No user account was found with email: " + request.getUsername())));
+        given(userRepository.findByUsermail(request.getUsermail()))
+                .willReturn(Mono.error(new Exception("No user account was found with email: " + request.getUsermail())));
 
         given(passwordEncoder.encode(request.getPassword()))
                 .willReturn(request.getPassword());
@@ -99,19 +100,19 @@ public class LoginCommandTest {
         assertNotEquals(expectedSuccess, result);
         assertEquals(null, result.getToken());
         assertEquals("Username or Password is wrong", result.getMessage());
-        verify(userRepository).findByUsername(request.getUsername());
+        verify(userRepository).findByUsermail(request.getUsermail());
     }
 
     @Test
     void executeWrongPassword_test(){
-        given(userRepository.findByUsername(user.getUsername()))
+        given(userRepository.findByUsermail(user.getUsermail()))
                 .willReturn(Mono.just(user));
 
         given(jwtTokenProvider.generateToken(user))
                 .willReturn("token");
 
         LoginRequest request = LoginRequest.builder()
-                .username("testing1")
+                .usermail("testing1@mail.com")
                 .password("passwordd")
                 .build();
 
@@ -123,6 +124,6 @@ public class LoginCommandTest {
         assertNotEquals(expectedSuccess, result);
         assertEquals(null, result.getToken());
         assertEquals("Username or Password is wrong", result.getMessage());
-        verify(userRepository).findByUsername(request.getUsername());
+        verify(userRepository).findByUsermail(request.getUsermail());
     }
 }
