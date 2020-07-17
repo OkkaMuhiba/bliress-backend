@@ -12,4 +12,6 @@ public interface UserRepository extends ReactiveMongoRepository<User, String> {
     Mono<User> findByUsermail(String usermail);
 
     Flux<User> findAllByRoles(Set<Role> roles);
+
+    Flux<User> findByBatch(String batch);
 }

@@ -29,11 +29,12 @@ public class CreateBatchCommandImpl implements CreateBatchCommand {
     private Batch createBatch(CreateBatchRequest request){
         String monthText = getMonth(Integer.parseInt(request.getMonth())).substring(0, 3);
         String year = request.getYear();
-        String batchName = monthText + "-" + year;
+        String batchId = monthText + "-" + year;
 
         Batch newBatch = Batch.builder()
-                .batchId(UUID.randomUUID().toString())
-                .batchName(batchName)
+                .id(UUID.randomUUID().toString())
+                .batchId(batchId)
+                .batchName(monthText + " - " + year)
                 .build();
         BeanUtils.copyProperties(request, newBatch);
 

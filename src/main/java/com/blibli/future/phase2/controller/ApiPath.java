@@ -26,7 +26,7 @@ public class ApiPath {
     public static final String ADMIN_EMPLOYEE = BASE_ADMIN + "/employee";
     public static final String ADMIN_EMPLOYEE_CREATE = ADMIN_EMPLOYEE + "";
     public static final String ADMIN_EMPLOYEE_GET_ALL = ADMIN_EMPLOYEE + "";
-    public static final String ADMIN_EMPLOYEE_GET_ALL_BY_BATCH = ADMIN_EMPLOYEE + "";
+    public static final String ADMIN_EMPLOYEE_GET_ALL_BY_BATCH = ADMIN_EMPLOYEE + "/batch";
     public static final String ADMIN_EMPLOYEE_GET_BY_ID = ADMIN_EMPLOYEE + "/detail";
     public static final String ADMIN_EMPLOYEE_UPDATE = ADMIN_EMPLOYEE + "";
     public static final String ADMIN_EMPLOYEE_DELETE = ADMIN_EMPLOYEE + "";
@@ -48,9 +48,17 @@ public class ApiPath {
     public static final String ADMIN_TRAINER_UPDATE = ADMIN_TRAINER + "";
     public static final String ADMIN_TRAINER_DELETE = ADMIN_TRAINER + "";
 
-    // Employee
+    // Material
     public static final String ADMIN_MATERIAL = BASE_ADMIN + "/material";
     public static final String ADMIN_MATERIAL_CREATE = ADMIN_MATERIAL + "/";
     public static final String ADMIN_MATERIAL_GET_ALL = ADMIN_MATERIAL + "/";
     public static final String ADMIN_MATERIAL_DELETE = ADMIN_MATERIAL + "/";
+
+    // Test
+    public static final String ADMIN_TEST = BASE_ADMIN + "/test";
+    public static final String ADMIN_TEST_CREATE = ADMIN_TEST + "/";
+    public static final String ADMIN_TEST_GET_MATERIAL_TEST = ADMIN_TEST + "/";
+    public static final String ADMIN_TEST_GET_QUESTION = ADMIN_TEST + "/preview";
+    public static final String ADMIN_TEST_UPDATE = ADMIN_TEST + "/";
+
 }

@@ -1,11 +1,11 @@
-package com.blibli.future.phase2.command.admin.trainer.impl;
+package com.blibli.future.phase2.command.admin.employee.impl;
 
-import com.blibli.future.phase2.command.admin.trainer.CreateTrainerCommand;
+import com.blibli.future.phase2.command.admin.employee.CreateEmployeeCommand;
 import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.entity.enumerate.Division;
 import com.blibli.future.phase2.entity.enumerate.Role;
-import com.blibli.future.phase2.model.command.admin.trainer.CreateTrainerRequest;
-import com.blibli.future.phase2.model.response.admin.trainer.CreateTrainerResponse;
+import com.blibli.future.phase2.model.command.admin.employee.CreateEmployeeRequest;
+import com.blibli.future.phase2.model.response.admin.employee.CreateEmployeeResponse;
 import com.blibli.future.phase2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +16,11 @@ import reactor.core.publisher.Mono;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
-public class CreateTrainerCommandImpl implements CreateTrainerCommand {
+public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
     @Autowired
     private UserRepository userRepository;
 
@@ -28,27 +28,32 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Mono<CreateTrainerResponse> execute(CreateTrainerRequest request) {
-        return Mono.fromCallable(() -> createTrainerUser(request))
+    public Mono<CreateEmployeeResponse> execute(CreateEmployeeRequest request) {
+        return Mono.fromCallable(() -> createEmployee(request))
                 .flatMap(user -> userRepository.save(user))
-                .map(user -> createResponse(HttpStatus.ACCEPTED, "Trainer has been input"))
-                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Trainer cannot be input"));
+                .map(user -> createResponse(HttpStatus.ACCEPTED, "Employee data has been created"))
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Employee cannot be created"));
     }
 
-    public User createTrainerUser(CreateTrainerRequest request){
+    private User createEmployee(CreateEmployeeRequest request){
         return User.builder()
                 .userId(UUID.randomUUID().toString())
                 .username(request.getName())
                 .usermail(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .roles(Collections.singleton(Role.ROLE_USER))
                 .division(Division.valueOf(request.getDivision()))
-                .roles(new HashSet<>(Collections.singleton(Role.ROLE_TRAINER)))
+                .gender(request.getGender().toUpperCase())
+                .birthDate(Date.from(Instant.parse(request.getBirthdate())))
+                .phoneNumber(request.getPhoneNumber())
+                .batch(request.getBatchId())
+                .stage(1)
                 .registeredAt(Timestamp.from(Instant.now()))
                 .build();
     }
 
-    public CreateTrainerResponse createResponse(HttpStatus status, String message){
-        return CreateTrainerResponse.builder()
+    private CreateEmployeeResponse createResponse(HttpStatus status, String message){
+        return CreateEmployeeResponse.builder()
                 .status(status)
                 .message(message)
                 .build();

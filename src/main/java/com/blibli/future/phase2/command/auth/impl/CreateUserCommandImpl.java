@@ -22,7 +22,7 @@ public class CreateUserCommandImpl implements CreateUserCommand {
     private UserRepository userRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Mono<CreateUserResponse> execute(CreateUserRequest request) {
