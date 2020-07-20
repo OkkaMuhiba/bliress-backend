@@ -31,7 +31,7 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
     private Training createTraining(CreateTrainingRequest request){
         return Training.builder()
                 .trainingId(UUID.randomUUID().toString())
-                .batchName(request.getBatchId())
+                .batchId(request.getBatchId())
                 .date(Date.from(Instant.parse(request.getDate())))
                 .startedAt(Timestamp.from(Instant.parse(request.getTimeStart())))
                 .endedAt(Timestamp.from(Instant.parse(request.getTimeFinish())))

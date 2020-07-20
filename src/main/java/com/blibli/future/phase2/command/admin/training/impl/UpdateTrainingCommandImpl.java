@@ -28,8 +28,8 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
                 .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Training cannot be updated"));
     }
 
-    private Mono<Training> getTraining(String batchName, Integer stage){
-        return trainingRepository.findByBatchNameAndStage(batchName, stage);
+    private Mono<Training> getTraining(String batchId, Integer stage){
+        return trainingRepository.findByBatchIdAndStage(batchId, stage);
     }
 
     private Training updateTraining(Training training, UpdateTrainingRequest request){

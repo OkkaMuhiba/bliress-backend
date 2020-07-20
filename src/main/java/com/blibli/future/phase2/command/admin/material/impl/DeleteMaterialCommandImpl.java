@@ -18,7 +18,7 @@ public class DeleteMaterialCommandImpl implements DeleteMaterialCommand {
     public Mono<DeleteMaterialResponse> execute(DeleteMaterialRequest request) {
         return Mono.from(trainingMaterialRepository.findById(request.getMaterialId()))
                 .flatMap(material -> trainingMaterialRepository.delete(material))
-                .thenReturn(createResponse(HttpStatus.ACCEPTED, "Material has been deleted"))
+                .thenReturn(createResponse(HttpStatus.OK, "Material has been deleted"))
                 .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Material does not exist"));
     }
 

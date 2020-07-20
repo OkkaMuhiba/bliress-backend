@@ -16,17 +16,18 @@ public class DeleteTrainingCommandImpl implements DeleteTrainingCommand {
 
     @Override
     public Mono<DeleteTrainingResponse> execute(DeleteTrainingRequest request) {
-        return Mono.from(deleteTraining(request));
+        return Mono.from(trainingRepository.findByBatchIdAndStage(
+                request.getBatchId(), Integer.parseInt(request.getTraining())))
+                .switchIfEmpty(Mono.error(NullPointerException::new))
+                .flatMap(training -> trainingRepository.delete(training))
+                .thenReturn(createResponse(HttpStatus.OK, "Training has been deleted"))
+                .onErrorReturn(createResponse(HttpStatus.OK, "Training does not exist"));
     }
 
-    private Mono<DeleteTrainingResponse> deleteTraining(DeleteTrainingRequest request){
-        return trainingRepository.deleteByBatchNameAndStage(
-                request.getBatchId(),
-                Integer.parseInt(request.getTraining())
-        ).thenReturn(DeleteTrainingResponse.builder()
-                .status(HttpStatus.OK)
-                .message("Training has been deleted")
-                .build());
-
+    private DeleteTrainingResponse createResponse(HttpStatus status, String message){
+        return DeleteTrainingResponse.builder()
+                .status(status)
+                .message(message)
+                .build();
     }
 }

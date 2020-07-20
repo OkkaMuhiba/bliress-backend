@@ -8,8 +8,5 @@ import reactor.core.publisher.Mono;
 public interface BatchRepository extends ReactiveMongoRepository<Batch, String> {
     Mono<Batch> findByBatchName(String batchName);
 
-    @Transactional
-    Mono<Void> deleteByBatchName(String batchName);
-
     Mono<Batch> findByMonthAndYear(String month, String year);
 }

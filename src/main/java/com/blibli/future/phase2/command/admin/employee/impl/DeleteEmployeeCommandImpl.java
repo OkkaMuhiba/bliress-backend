@@ -15,14 +15,18 @@ public class DeleteEmployeeCommandImpl implements DeleteEmployeeCommand {
 
     @Override
     public Mono<DeleteEmployeeResponse> execute(String request) {
-        return userRepository.deleteById(request)
-                .thenReturn(DeleteEmployeeResponse.builder()
-                        .status(HttpStatus.ACCEPTED)
-                        .message("Employee has been deleted")
-                        .build())
-                .onErrorReturn(DeleteEmployeeResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST)
-                        .message("Employee cannot be deleted")
-                        .build());
+
+        return Mono.from(userRepository.findById(request))
+                .switchIfEmpty(Mono.error(NullPointerException::new))
+                .flatMap(user -> userRepository.delete(user))
+                .thenReturn(createResponse(HttpStatus.OK, "Employee data has been deleted"))
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Employee data does not exist"));
+    }
+
+    private DeleteEmployeeResponse createResponse(HttpStatus status, String message){
+        return DeleteEmployeeResponse.builder()
+                        .status(status)
+                        .message(message)
+                        .build();
     }
 }

@@ -15,7 +15,7 @@ public class GetByIdTrainingCommandImpl implements GetByIdTrainingCommand {
 
     @Override
     public Mono<Training> execute(GetByIdTrainingRequest request) {
-        return trainingRepository.findByBatchNameAndStage(
+        return trainingRepository.findByBatchIdAndStage(
                 request.getBatchId(),
                 Integer.parseInt(request.getBatchId())
         );

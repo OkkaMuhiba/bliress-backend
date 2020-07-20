@@ -43,9 +43,9 @@ public class BatchController {
     }
 
     @DeleteMapping(ApiPath.ADMIN_BATCH_DELETE)
-    public Mono<Response<DeleteBatchResponse>> deleteBatchByBatchName(@RequestParam String batchName){
-        return commandExecutor.execute(DeleteBatchCommand.class, batchName)
-                .map(response -> ResponseHelper.ok(response))
+    public Mono<Response<DeleteBatchResponse>> deleteBatchByBatchName(@RequestParam String batchId){
+        return commandExecutor.execute(DeleteBatchCommand.class, batchId)
+                .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }
 }

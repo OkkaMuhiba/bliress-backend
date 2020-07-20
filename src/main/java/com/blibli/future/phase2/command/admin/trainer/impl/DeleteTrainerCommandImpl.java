@@ -15,14 +15,17 @@ public class DeleteTrainerCommandImpl implements DeleteTrainerCommand {
 
     @Override
     public Mono<DeleteTrainerResponse> execute(String request) {
-        return userRepository.deleteById(request)
-                .thenReturn(DeleteTrainerResponse.builder()
-                        .status(HttpStatus.ACCEPTED)
-                        .message("Trainer has been deleted")
-                        .build())
-                .onErrorReturn(DeleteTrainerResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST)
-                        .message("Trainer cannot be deleted")
-                        .build());
+        return Mono.from(userRepository.findById(request))
+                .switchIfEmpty(Mono.error(NullPointerException::new))
+                .flatMap(user -> userRepository.delete(user))
+                .thenReturn(createResponse(HttpStatus.OK, "Trainer has been deleted"))
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Trainer does not exist"));
+    }
+
+    private DeleteTrainerResponse createResponse(HttpStatus status, String message){
+        return DeleteTrainerResponse.builder()
+                .status(status)
+                .message(message)
+                .build();
     }
 }

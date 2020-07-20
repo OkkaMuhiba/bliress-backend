@@ -6,8 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 public interface TrainingRepository extends ReactiveMongoRepository<Training, String> {
-    Mono<Training> findByBatchNameAndStage(String batchName, Integer stage);
-
-    @Transactional
-    Mono<Void> deleteByBatchNameAndStage(String batchName, Integer stage);
+    Mono<Training> findByBatchIdAndStage(String batchId, Integer stage);
 }

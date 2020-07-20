@@ -19,7 +19,7 @@ public class Training {
     @Id
     private String trainingId;
 
-    private String batchName;
+    private String batchId;
 
     private Integer stage;
 

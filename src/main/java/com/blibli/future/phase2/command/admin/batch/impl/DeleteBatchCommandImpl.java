@@ -16,14 +16,17 @@ public class DeleteBatchCommandImpl implements DeleteBatchCommand {
 
     @Override
     public Mono<DeleteBatchResponse> execute(String request) {
-        return Mono.from(deleteBatch(request));
+        return Mono.from(batchRepository.findById(request))
+                .switchIfEmpty(Mono.error(NullPointerException::new))
+                .flatMap(batch -> batchRepository.delete(batch))
+                .thenReturn(createResponse(HttpStatus.OK, "Batch has been deleted"))
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Batch does not exist"));
     }
 
-    private Mono<DeleteBatchResponse> deleteBatch(String batchName){
-        return batchRepository.deleteByBatchName(batchName)
-                .thenReturn(DeleteBatchResponse.builder()
-                        .status(HttpStatus.OK)
-                        .message("Batch has been deleted")
-                        .build());
+    private DeleteBatchResponse createResponse(HttpStatus status, String message){
+        return DeleteBatchResponse.builder()
+                .status(status)
+                .message(message)
+                .build();
     }
 }

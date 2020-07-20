@@ -59,7 +59,7 @@ public class TrainingController {
     @DeleteMapping(ApiPath.ADMIN_TRAINING_DELETE)
     public Mono<Response<DeleteTrainingResponse>> deleteTraining(@RequestBody DeleteTrainingRequest request){
         return commandExecutor.execute(DeleteTrainingCommand.class, request)
-                .map(response -> ResponseHelper.ok(response))
+                .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }
 }
