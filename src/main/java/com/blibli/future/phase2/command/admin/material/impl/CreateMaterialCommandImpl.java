@@ -21,12 +21,12 @@ public class CreateMaterialCommandImpl implements CreateMaterialCommand {
     public Mono<CreateMaterialResponse> execute(CreateMaterialRequest request) {
         return Mono.fromCallable(() -> createMaterial(request))
                 .flatMap(material -> trainingMaterialRepository.save(material))
-                .map(material -> createResponse(HttpStatus.ACCEPTED, "Material has been created", material.getId()));
+                .map(material -> createResponse(HttpStatus.ACCEPTED, "Material has been created", material.getMaterialId()));
     }
 
     private TrainingMaterial createMaterial(CreateMaterialRequest request){
         return TrainingMaterial.builder()
-                .id(UUID.randomUUID().toString())
+                .materialId(UUID.randomUUID().toString())
                 .batchId(request.getBatchId())
                 .stage(Integer.parseInt(request.getTraining()))
                 .materialName(request.getMaterialName())

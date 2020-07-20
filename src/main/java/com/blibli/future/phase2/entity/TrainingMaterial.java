@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class TrainingMaterial {
     @Id
-    private String id;
+    private String materialId;
 
     private String batchId;
 
