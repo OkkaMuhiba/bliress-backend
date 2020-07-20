@@ -53,6 +53,7 @@ public class ApiPath {
     public static final String ADMIN_MATERIAL_CREATE = ADMIN_MATERIAL + "/";
     public static final String ADMIN_MATERIAL_GET_ALL = ADMIN_MATERIAL + "/";
     public static final String ADMIN_MATERIAL_DELETE = ADMIN_MATERIAL + "/";
+    public static final String ADMIN_MATERIAL_FILE_UPLOAD = ADMIN_MATERIAL + "/file";
 
     // Test
     public static final String ADMIN_TEST = BASE_ADMIN + "/test";

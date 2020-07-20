@@ -16,7 +16,7 @@ public class TrainingMaterial {
     @Id
     private String id;
 
-    private String batchName;
+    private String batchId;
 
     private Integer stage;
 
