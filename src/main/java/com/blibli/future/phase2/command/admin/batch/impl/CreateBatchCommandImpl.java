@@ -20,23 +20,30 @@ public class CreateBatchCommandImpl implements CreateBatchCommand {
 
     @Override
     public Mono<CreateBatchResponse> execute(CreateBatchRequest request){
-        return Mono.fromCallable(() -> createBatch(request))
-                .flatMap(batch -> batchRepository.save(batch))
+        return Mono.from(checkIfBatchIsExist(request))
+                .flatMap(result -> (result) ? Mono.just(null) : Mono.just(createBatch(request)))
+                .flatMap(batch -> (batch == null) ? Mono.just(null) : batchRepository.save(batch))
                 .map(batch -> createResponse(HttpStatus.ACCEPTED, "Batch has been created"))
                 .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Batch cannot be created"));
     }
 
+    public Mono<Boolean> checkIfBatchIsExist(CreateBatchRequest request){
+        return Mono.from(batchRepository.findByMonthAndYear(request.getBatch(), request.getYear()))
+                .switchIfEmpty(Mono.just(Batch.builder().build()))
+                .map(batch -> batch.getBatchId() != null);
+    }
+
     private Batch createBatch(CreateBatchRequest request){
-        String monthText = getMonth(Integer.parseInt(request.getMonth())).substring(0, 3);
+        String monthText = getMonth(Integer.parseInt(request.getBatch())).substring(0, 3);
         String year = request.getYear();
         String batchId = monthText + "-" + year;
 
         Batch newBatch = Batch.builder()
-                .id(UUID.randomUUID().toString())
                 .batchId(batchId)
                 .batchName(monthText + " - " + year)
+                .month(request.getBatch())
+                .year(request.getYear())
                 .build();
-        BeanUtils.copyProperties(request, newBatch);
 
         return newBatch;
     }

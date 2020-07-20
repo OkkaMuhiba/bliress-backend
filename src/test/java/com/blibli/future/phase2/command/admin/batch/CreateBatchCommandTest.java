@@ -40,7 +40,7 @@ public class CreateBatchCommandTest {
     @Test
     void creatBatchSuccess_test(){
         CreateBatchRequest request = CreateBatchRequest.builder()
-                .month("1")
+                .batch("1")
                 .year("2020")
                 .build();
 

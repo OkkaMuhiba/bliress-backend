@@ -1,5 +1,6 @@
 package com.blibli.future.phase2.model.response;
 
+import com.blibli.future.phase2.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,4 +14,6 @@ public class LoginResponse {
     private String token;
 
     private String message;
+
+    private User user;
 }

@@ -10,4 +10,6 @@ public interface BatchRepository extends ReactiveMongoRepository<Batch, String> 
 
     @Transactional
     Mono<Void> deleteByBatchName(String batchName);
+
+    Mono<Batch> findByMonthAndYear(String month, String year);
 }

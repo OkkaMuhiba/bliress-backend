@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class CreateBatchRequest {
     @NotBlank
-    private String month;
+    private String batch;
 
     @NotBlank
     private String year;

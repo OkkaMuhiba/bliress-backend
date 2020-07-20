@@ -14,8 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Batch {
     @Id
-    private String id;
-
     private String batchId;
 
     private String batchName;

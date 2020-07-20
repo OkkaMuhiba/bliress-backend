@@ -29,10 +29,17 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
 
     @Override
     public Mono<CreateTrainerResponse> execute(CreateTrainerRequest request) {
-        return Mono.fromCallable(() -> createTrainerUser(request))
-                .flatMap(user -> userRepository.save(user))
-                .map(user -> createResponse(HttpStatus.ACCEPTED, "Trainer has been input"))
-                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Trainer cannot be input"));
+        return Mono.from(checkIfTrainerIsExist(request))
+                .flatMap(result -> (result) ? Mono.just(null) : Mono.just(createTrainerUser(request)))
+                .flatMap(user -> (user == null) ? Mono.just(null) : userRepository.save(user))
+                .map(user -> createResponse(HttpStatus.ACCEPTED, "Employee data has been created"))
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Employee cannot be created"));
+    }
+
+    public Mono<Boolean> checkIfTrainerIsExist(CreateTrainerRequest request){
+        return Mono.from(userRepository.findByUsermail(request.getEmail())
+                .switchIfEmpty(Mono.just(User.builder().build()))
+                .map(user -> user.getUserId() != null));
     }
 
     public User createTrainerUser(CreateTrainerRequest request){

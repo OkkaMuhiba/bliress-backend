@@ -30,11 +30,11 @@ public class LoginCommandImpl implements LoginCommand {
     public Mono<LoginResponse> execute(LoginRequest request) {
         return findUserByUsermail(request.getUsermail()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
-                return createResponse(jwtTokenProvider.generateToken(userDetails), "SUCCESS");
+                return createResponse(jwtTokenProvider.generateToken(userDetails), "SUCCESS", userDetails);
             } else {
-                return createResponse(null, "Username or Password is wrong");
+                return createResponse(null, "Username or Password is wrong", null);
             }
-        }).onErrorReturn(createResponse(null, "Username or Password is wrong"));
+        }).onErrorReturn(createResponse(null, "Username or Password is wrong", null));
     }
 
     private Mono<User> findUserByUsermail(String usermail){
@@ -42,8 +42,12 @@ public class LoginCommandImpl implements LoginCommand {
                 .switchIfEmpty(Mono.error(new Exception("No user account was found with email: " + usermail)));
     }
 
-    private LoginResponse createResponse(String token, String message){
-        return LoginResponse.builder().token(token).message(message).build();
+    private LoginResponse createResponse(String token, String message, User user){
+        return LoginResponse.builder()
+                .token(token)
+                .message(message)
+                .user(user)
+                .build();
     }
 
 

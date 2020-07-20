@@ -44,7 +44,7 @@ public class BatchControllerTest {
     public void setUp(){
         initMocks(this);
         request = CreateBatchRequest.builder()
-                .month("1")
+                .batch("1")
                 .year("2020")
                 .build();
         expectedResponse = Response.<CreateBatchResponse>builder().build();
