@@ -42,8 +42,8 @@ public class TrainerController {
     }
 
     @GetMapping(ApiPath.ADMIN_TRAINER_GET_BY_ID)
-    public Mono<Response<User>> getByIdTrainer(@RequestParam String userId){
-        return commandExecutor.execute(GetByIdTrainerCommand.class, userId)
+    public Mono<Response<User>> getByIdTrainer(@RequestParam String id){
+        return commandExecutor.execute(GetByIdTrainerCommand.class, id)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }

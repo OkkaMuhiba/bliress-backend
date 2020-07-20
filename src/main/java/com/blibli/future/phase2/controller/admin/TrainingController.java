@@ -36,8 +36,8 @@ public class TrainingController {
     }
 
     @GetMapping(ApiPath.ADMIN_TRAINING_GET_ALL)
-    public Mono<Response<GetAllTrainingResponse>> getAllTraining(@RequestParam String batchId){
-        return commandExecutor.execute(GetAllTrainingCommand.class, batchId)
+    public Mono<Response<GetAllTrainingResponse>> getAllTraining(@RequestParam String id){
+        return commandExecutor.execute(GetAllTrainingCommand.class, id)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
