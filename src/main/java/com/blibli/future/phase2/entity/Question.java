@@ -12,9 +12,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-    private String questionDesc;
+    private String questionText;
 
-    private Set<String> questions;
+    private Set<String> choices;
 
     private Integer correctAnswer;
 }
