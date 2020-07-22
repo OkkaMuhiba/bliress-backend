@@ -21,4 +21,6 @@ public class Batch {
     private String month;
 
     private String year;
+
+    private Boolean isActive;
 }

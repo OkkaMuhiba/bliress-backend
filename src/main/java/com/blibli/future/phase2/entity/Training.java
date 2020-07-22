@@ -24,7 +24,7 @@ public class Training {
 
     private Integer stage;
 
-    private LocalDate date;
+    private Timestamp date;
 
     private Timestamp startedAt;
 

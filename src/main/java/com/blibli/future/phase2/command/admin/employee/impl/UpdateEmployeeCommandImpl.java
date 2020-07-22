@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -38,7 +40,7 @@ public class UpdateEmployeeCommandImpl implements UpdateEmployeeCommand {
         user.setUsermail(request.getEmail());
         user.setDivision(request.getDivision());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setBirthDate(LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+        user.setBirthDate(Timestamp.from(convertStringDateToInstant(request.getBirthdate())));
         user.setGender(request.getGender().toUpperCase());
 
         return user;
@@ -49,5 +51,10 @@ public class UpdateEmployeeCommandImpl implements UpdateEmployeeCommand {
                 .status(status)
                 .message(message)
                 .build();
+    }
+
+    private Instant convertStringDateToInstant(String date){
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                .atStartOfDay(ZoneId.systemDefault()).toInstant();
     }
 }

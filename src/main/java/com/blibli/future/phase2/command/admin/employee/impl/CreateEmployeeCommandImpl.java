@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
@@ -52,7 +53,7 @@ public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
                 .roles(Collections.singleton(Role.ROLE_USER))
                 .division(request.getDivision())
                 .gender(request.getGender().toUpperCase())
-                .birthDate(LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                .birthDate(Timestamp.from(convertStringDateToInstant(request.getBirthdate())))
                 .phoneNumber(request.getPhoneNumber())
                 .batch(request.getBatchId())
                 .stage(1)
@@ -65,5 +66,10 @@ public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
                 .status(status)
                 .message(message)
                 .build();
+    }
+
+    private Instant convertStringDateToInstant(String date){
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                .atStartOfDay(ZoneId.systemDefault()).toInstant();
     }
 }

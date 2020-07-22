@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -38,8 +40,8 @@ public class UpdateTestCommandImpl implements UpdateTestCommand {
     }
 
     private Test updateTest(Test test, UpdateTestRequest request){
-        test.setAvailable(LocalDate.parse(request.getAvailable(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
-        test.setClosed(LocalDate.parse(request.getClosed(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+        test.setAvailable(Timestamp.from(convertStringDateToInstant(request.getAvailable())));
+        test.setClosed(Timestamp.from(convertStringDateToInstant(request.getClosed())));
         test.setTimeLimit(request.getTimeLimit());
         test.setQuestions(request.getQuestions());
 
@@ -51,5 +53,10 @@ public class UpdateTestCommandImpl implements UpdateTestCommand {
                 .status(status)
                 .message(message)
                 .build();
+    }
+
+    private Instant convertStringDateToInstant(String date){
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                .atStartOfDay(ZoneId.systemDefault()).toInstant();
     }
 }

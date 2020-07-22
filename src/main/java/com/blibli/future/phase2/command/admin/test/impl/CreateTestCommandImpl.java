@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -46,8 +48,8 @@ public class CreateTestCommandImpl implements CreateTestCommand {
                 .batchId(request.getBatchId())
                 .stage(Integer.parseInt(request.getTraining()))
                 .materialId(request.getMaterialId())
-                .available(LocalDate.parse(request.getAvailable(), DateTimeFormatter.ofPattern("dd-mm-yyyy")))
-                .closed(LocalDate.parse(request.getClosed(), DateTimeFormatter.ofPattern("dd-mm-yyyy")))
+                .available(Timestamp.from(convertStringDateToInstant(request.getAvailable())))
+                .closed(Timestamp.from(convertStringDateToInstant(request.getClosed())))
                 .timeLimit(request.getTimeLimit())
                 .questions(request.getQuestions())
                 .build();
@@ -58,5 +60,10 @@ public class CreateTestCommandImpl implements CreateTestCommand {
                 .status(status)
                 .message(message)
                 .build();
+    }
+
+    private Instant convertStringDateToInstant(String date){
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                .atStartOfDay(ZoneId.systemDefault()).toInstant();
     }
 }

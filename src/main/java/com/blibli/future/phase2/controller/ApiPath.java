@@ -18,6 +18,7 @@ public class ApiPath {
 
     // Batch
     public static final String ADMIN_BATCH = BASE_ADMIN + "/batch";
+    public static final String ADMIN_GET_ALL_BATCH_TRAINING = BASE_ADMIN + "/batchtraining";
     public static final String ADMIN_BATCH_CREATE = ADMIN_BATCH + "";
     public static final String ADMIN_BATCH_GET_ALL = ADMIN_BATCH + "";
     public static final String ADMIN_BATCH_GET_BY_ID = ADMIN_BATCH + "/detail";

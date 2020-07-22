@@ -49,7 +49,7 @@ public class User implements UserDetails {
 
     private Integer stage;
 
-    private LocalDate birthDate;
+    private Timestamp birthDate;
 
     private Timestamp registeredAt;
 

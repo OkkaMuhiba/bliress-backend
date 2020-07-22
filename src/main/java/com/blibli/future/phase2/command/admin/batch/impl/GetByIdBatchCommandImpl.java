@@ -1,14 +1,28 @@
 package com.blibli.future.phase2.command.admin.batch.impl;
 
 import com.blibli.future.phase2.command.admin.batch.GetByIdBatchCommand;
+import com.blibli.future.phase2.entity.Batch;
 import com.blibli.future.phase2.model.response.admin.batch.GetByIdBatchResponse;
+import com.blibli.future.phase2.repository.BatchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class GetByIdBatchCommandImpl implements GetByIdBatchCommand {
+    @Autowired
+    private BatchRepository batchRepository;
+
     @Override
     public Mono<GetByIdBatchResponse> execute(String request) {
-        return null;
+        return batchRepository.findById(request)
+                .map(batch -> createResponse(batch))
+                .onErrorReturn(createResponse(null));
+    }
+
+    private GetByIdBatchResponse createResponse(Batch batch){
+        return GetByIdBatchResponse.builder()
+                .batch(batch)
+                .build();
     }
 }

@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -35,7 +36,7 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
     }
 
     private Training updateTraining(Training training, UpdateTrainingRequest request){
-        training.setDate(LocalDate.parse(request.getDate(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+        training.setDate(Timestamp.from(convertStringDateToInstant(request.getDate())));
         training.setStartedAt(Timestamp.from(Instant.parse(request.getTimeStart())));
         training.setEndedAt(Timestamp.from(Instant.parse(request.getTimeFinish())));
         training.setLocation(request.getLocation());
@@ -49,5 +50,10 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
                 .status(status)
                 .message(message)
                 .build();
+    }
+
+    private Instant convertStringDateToInstant(String date){
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                .atStartOfDay(ZoneId.systemDefault()).toInstant();
     }
 }

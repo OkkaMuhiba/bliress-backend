@@ -7,10 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GetByIdBatchResponse {
+public class BatchTrainingResponse {
     private Batch batch;
+
+    private List<Training> trainings;
 }
