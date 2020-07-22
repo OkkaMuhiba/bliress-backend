@@ -2,7 +2,6 @@ package com.blibli.future.phase2.command.admin.employee.impl;
 
 import com.blibli.future.phase2.command.admin.employee.CreateEmployeeCommand;
 import com.blibli.future.phase2.entity.User;
-import com.blibli.future.phase2.entity.enumerate.Division;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.model.command.admin.employee.CreateEmployeeRequest;
 import com.blibli.future.phase2.model.response.admin.employee.CreateEmployeeResponse;
@@ -15,6 +14,8 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
@@ -49,9 +50,9 @@ public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
                 .usermail(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(Collections.singleton(Role.ROLE_USER))
-                .division(Division.valueOf(request.getDivision()))
+                .division(request.getDivision())
                 .gender(request.getGender().toUpperCase())
-                .birthDate(Date.from(Instant.parse(request.getBirthdate())))
+                .birthDate(LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("dd-MM-yyyy")))
                 .phoneNumber(request.getPhoneNumber())
                 .batch(request.getBatchId())
                 .stage(1)

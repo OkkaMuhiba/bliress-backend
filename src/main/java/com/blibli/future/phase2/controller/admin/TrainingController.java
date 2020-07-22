@@ -7,10 +7,7 @@ import com.blibli.future.phase2.model.command.admin.training.CreateTrainingReque
 import com.blibli.future.phase2.model.command.admin.training.DeleteTrainingRequest;
 import com.blibli.future.phase2.model.command.admin.training.GetByIdTrainingRequest;
 import com.blibli.future.phase2.model.command.admin.training.UpdateTrainingRequest;
-import com.blibli.future.phase2.model.response.admin.training.CreateTrainingResponse;
-import com.blibli.future.phase2.model.response.admin.training.DeleteTrainingResponse;
-import com.blibli.future.phase2.model.response.admin.training.GetAllTrainingResponse;
-import com.blibli.future.phase2.model.response.admin.training.UpdateTrainingResponse;
+import com.blibli.future.phase2.model.response.admin.training.*;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -29,37 +26,51 @@ public class TrainingController {
     private CommandExecutor commandExecutor;
 
     @PostMapping(ApiPath.ADMIN_TRAINING_CREATE)
-    public Mono<Response<CreateTrainingResponse>> createTraining(@RequestBody CreateTrainingRequest request){
+    public Mono<Response<CreateTrainingResponse>> adminCreateTraining(@RequestBody CreateTrainingRequest request){
         return commandExecutor.execute(CreateTrainingCommand.class, request)
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }
 
     @GetMapping(ApiPath.ADMIN_TRAINING_GET_ALL)
-    public Mono<Response<GetAllTrainingResponse>> getAllTraining(@RequestParam String id){
-        return commandExecutor.execute(GetAllTrainingCommand.class, id)
+    public Mono<Response<GetAllTrainingResponse>> adminGetAllTraining(@RequestParam String batchId){
+        return commandExecutor.execute(GetAllTrainingCommand.class, batchId)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
 
     @GetMapping(ApiPath.ADMIN_TRAINING_GET_BY_ID)
-    public Mono<Response<Training>> getByIdTraining(@RequestBody GetByIdTrainingRequest request){
+    public Mono<Response<Training>> adminGetByIdTraining(@RequestBody GetByIdTrainingRequest request){
         return commandExecutor.execute(GetByIdTrainingCommand.class, request)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
 
     @PutMapping(ApiPath.ADMIN_TRAINING_UPDATE)
-    public Mono<Response<UpdateTrainingResponse>> updateTraining(@RequestBody UpdateTrainingRequest request){
+    public Mono<Response<UpdateTrainingResponse>> adminUpdateTraining(@RequestBody UpdateTrainingRequest request){
         return commandExecutor.execute(UpdateTrainingCommand.class, request)
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }
 
     @DeleteMapping(ApiPath.ADMIN_TRAINING_DELETE)
-    public Mono<Response<DeleteTrainingResponse>> deleteTraining(@RequestBody DeleteTrainingRequest request){
+    public Mono<Response<DeleteTrainingResponse>> adminDeleteTraining(@RequestBody DeleteTrainingRequest request){
         return commandExecutor.execute(DeleteTrainingCommand.class, request)
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(ApiPath.TRAINER_TRAINING_GET_ALL)
+    public Mono<Response<GetAllByTrainerIdResponse>> trainerGetAllTraining(@RequestParam String trainerId){
+        return commandExecutor.execute(GetAllByTrainerIdTrainingCommand.class, trainerId)
+                .map(response -> ResponseHelper.ok(response))
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(ApiPath.TRAINER_TRAINING_GET_BY_ID)
+    public Mono<Response<Training>> trainerGetByIdTraining(@RequestBody GetByIdTrainingRequest request){
+        return commandExecutor.execute(GetByIdTrainingCommand.class, request)
+                .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
 }

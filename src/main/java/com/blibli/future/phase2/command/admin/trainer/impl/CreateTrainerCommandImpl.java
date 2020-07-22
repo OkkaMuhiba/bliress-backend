@@ -2,7 +2,6 @@ package com.blibli.future.phase2.command.admin.trainer.impl;
 
 import com.blibli.future.phase2.command.admin.trainer.CreateTrainerCommand;
 import com.blibli.future.phase2.entity.User;
-import com.blibli.future.phase2.entity.enumerate.Division;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.model.command.admin.trainer.CreateTrainerRequest;
 import com.blibli.future.phase2.model.response.admin.trainer.CreateTrainerResponse;
@@ -32,8 +31,8 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
         return Mono.from(checkIfTrainerIsExist(request))
                 .flatMap(result -> (result) ? Mono.just(null) : Mono.just(createTrainerUser(request)))
                 .flatMap(user -> (user == null) ? Mono.just(null) : userRepository.save(user))
-                .map(user -> createResponse(HttpStatus.ACCEPTED, "Employee data has been created"))
-                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Employee cannot be created"));
+                .map(user -> createResponse(HttpStatus.ACCEPTED, "Trainer data has been created"))
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Trainer cannot be created"));
     }
 
     public Mono<Boolean> checkIfTrainerIsExist(CreateTrainerRequest request){
@@ -48,7 +47,7 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
                 .username(request.getName())
                 .usermail(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .division(Division.valueOf(request.getDivision()))
+                .division(request.getDivision())
                 .roles(new HashSet<>(Collections.singleton(Role.ROLE_TRAINER)))
                 .registeredAt(Timestamp.from(Instant.now()))
                 .build();

@@ -12,6 +12,8 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class UpdateTestCommandImpl implements UpdateTestCommand {
@@ -36,8 +38,8 @@ public class UpdateTestCommandImpl implements UpdateTestCommand {
     }
 
     private Test updateTest(Test test, UpdateTestRequest request){
-        test.setAvailable(Date.from(Instant.parse(request.getAvailable())));
-        test.setClosed(Date.from(Instant.parse(request.getClosed())));
+        test.setAvailable(LocalDate.parse(request.getAvailable(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+        test.setClosed(LocalDate.parse(request.getClosed(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
         test.setTimeLimit(request.getTimeLimit());
         test.setQuestions(request.getQuestions());
 

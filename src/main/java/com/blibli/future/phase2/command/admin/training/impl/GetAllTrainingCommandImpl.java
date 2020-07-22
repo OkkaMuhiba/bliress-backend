@@ -24,7 +24,7 @@ public class GetAllTrainingCommandImpl implements GetAllTrainingCommand {
         return GetAllTrainingResponse.builder()
                 .trainingList(
                         new HashSet<>(Collections.unmodifiableList(
-                                trainingRepository.findAll().collectList().block()
+                                trainingRepository.findAllByBatchId(request).collectList().block()
                         )
                 ))
                 .build();

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -25,9 +26,9 @@ public class Test {
 
     private String materialId;
 
-    private Date available;
+    private LocalDate available;
 
-    private Date closed;
+    private LocalDate closed;
 
     private Integer timeLimit;
 

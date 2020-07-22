@@ -12,6 +12,8 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
@@ -44,8 +46,8 @@ public class CreateTestCommandImpl implements CreateTestCommand {
                 .batchId(request.getBatchId())
                 .stage(Integer.parseInt(request.getTraining()))
                 .materialId(request.getMaterialId())
-                .available(Date.from(Instant.parse(request.getAvailable())))
-                .closed(Date.from(Instant.parse(request.getClosed())))
+                .available(LocalDate.parse(request.getAvailable(), DateTimeFormatter.ofPattern("dd-mm-yyyy")))
+                .closed(LocalDate.parse(request.getClosed(), DateTimeFormatter.ofPattern("dd-mm-yyyy")))
                 .timeLimit(request.getTimeLimit())
                 .questions(request.getQuestions())
                 .build();

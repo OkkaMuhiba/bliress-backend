@@ -1,6 +1,5 @@
 package com.blibli.future.phase2.entity;
 
-import com.blibli.future.phase2.entity.enumerate.Division;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -14,8 +13,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,7 +39,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private Boolean enabled;
 
-    private Division division;
+    private String division;
 
     private String phoneNumber;
 
@@ -50,7 +49,7 @@ public class User implements UserDetails {
 
     private Integer stage;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private Timestamp registeredAt;
 

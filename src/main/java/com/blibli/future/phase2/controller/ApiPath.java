@@ -35,12 +35,12 @@ public class ApiPath {
 
     // Training
     public static final String ADMIN_TRAINING = ADMIN_BATCH + "/training";
-    public static final String ADMIN_TRAINING_CREATE = ADMIN_TRAINING + "/";
-    public static final String ADMIN_TRAINING_GET_ALL = ADMIN_TRAINING + "/";
+    public static final String ADMIN_TRAINING_CREATE = ADMIN_TRAINING + "";
+    public static final String ADMIN_TRAINING_GET_ALL = ADMIN_TRAINING + "";
     public static final String ADMIN_TRAINING_GET_ATTENDANCE = ADMIN_TRAINING + "/attendance";
     public static final String ADMIN_TRAINING_GET_BY_ID = ADMIN_TRAINING + "/detail";
-    public static final String ADMIN_TRAINING_UPDATE = ADMIN_TRAINING + "/";
-    public static final String ADMIN_TRAINING_DELETE = ADMIN_TRAINING + "/";
+    public static final String ADMIN_TRAINING_UPDATE = ADMIN_TRAINING + "";
+    public static final String ADMIN_TRAINING_DELETE = ADMIN_TRAINING + "";
 
     // Trainer
     public static final String ADMIN_TRAINER = BASE_ADMIN + "/trainer";
@@ -53,16 +53,37 @@ public class ApiPath {
 
     // Material
     public static final String ADMIN_MATERIAL = BASE_ADMIN + "/material";
-    public static final String ADMIN_MATERIAL_CREATE = ADMIN_MATERIAL + "/";
-    public static final String ADMIN_MATERIAL_GET_ALL = ADMIN_MATERIAL + "/";
-    public static final String ADMIN_MATERIAL_DELETE = ADMIN_MATERIAL + "/";
+    public static final String ADMIN_MATERIAL_CREATE = ADMIN_MATERIAL + "";
+    public static final String ADMIN_MATERIAL_GET_ALL = ADMIN_MATERIAL + "";
+    public static final String ADMIN_MATERIAL_DELETE = ADMIN_MATERIAL + "";
     public static final String ADMIN_MATERIAL_FILE_UPLOAD = ADMIN_MATERIAL + "/file";
 
     // Test
     public static final String ADMIN_TEST = BASE_ADMIN + "/test";
-    public static final String ADMIN_TEST_CREATE = ADMIN_TEST + "/";
-    public static final String ADMIN_TEST_GET_MATERIAL_TEST = ADMIN_TEST + "/";
+    public static final String ADMIN_TEST_CREATE = ADMIN_TEST + "";
+    public static final String ADMIN_TEST_GET_MATERIAL_TEST = ADMIN_TEST + "";
     public static final String ADMIN_TEST_GET_QUESTION = ADMIN_TEST + "/preview";
-    public static final String ADMIN_TEST_UPDATE = ADMIN_TEST + "/";
+    public static final String ADMIN_TEST_UPDATE = ADMIN_TEST + "";
 
+    /**
+     * TRAINER PATH
+     */
+
+    public static final String BASE_TRAINER = BASE_PATH + "/trainer";
+
+    // Material
+    public static final String TRAINER_MATERIAL = BASE_TRAINER + "/material";
+    public static final String TRAINER_MATERIAL_CREATE = TRAINER_MATERIAL + "";
+    public static final String TRAINER_MATERIAL_DELETE = TRAINER_MATERIAL + "";
+
+    // Test
+    public static final String TRAINER_TEST = BASE_TRAINER + "/test";
+    public static final String TRAINER_TEST_CREATE = TRAINER_TEST + "";
+    public static final String TRAINER_TEST_GET_QUESTION = TRAINER_TEST + "/preview";
+    public static final String TRAINER_TEST_UPDATE = TRAINER_TEST + "";
+
+    // Training
+    public static final String TRAINER_TRAINING = BASE_TRAINER + "/training";
+    public static final String TRAINER_TRAINING_GET_ALL = TRAINER_TRAINING + "";
+    public static final String TRAINER_TRAINING_GET_BY_ID = TRAINER_TRAINING + "/detail";
 }

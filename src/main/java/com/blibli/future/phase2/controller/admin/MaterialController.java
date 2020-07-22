@@ -28,7 +28,7 @@ public class MaterialController {
     private CommandExecutor commandExecutor;
 
     @PostMapping(ApiPath.ADMIN_MATERIAL_CREATE)
-    public Mono<Response<CreateMaterialResponse>> createMaterial(@RequestBody CreateMaterialRequest request){
+    public Mono<Response<CreateMaterialResponse>> adminCreateMaterial(@RequestBody CreateMaterialRequest request){
         return commandExecutor.execute(CreateMaterialCommand.class, request)
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
@@ -36,14 +36,29 @@ public class MaterialController {
     }
 
     @GetMapping(ApiPath.ADMIN_MATERIAL_GET_ALL)
-    public Mono<Response<GetAllMaterialResponse>> getAllMaterial(@RequestBody GetAllMaterialRequest request){
+    public Mono<Response<GetAllMaterialResponse>> adminGetAllMaterial(@RequestBody GetAllMaterialRequest request){
         return commandExecutor.execute(GetAllMaterialCommand.class, request)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
 
     @DeleteMapping(ApiPath.ADMIN_MATERIAL_DELETE)
-    public Mono<Response<DeleteMaterialResponse>> deleteMaterial(@RequestBody DeleteMaterialRequest request){
+    public Mono<Response<DeleteMaterialResponse>> adminDeleteMaterial(@RequestBody DeleteMaterialRequest request){
+        return commandExecutor.execute(DeleteMaterialCommand.class, request)
+                .map(response -> ResponseHelper.status(response.getStatus(), response))
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PostMapping(ApiPath.TRAINER_MATERIAL_CREATE)
+    public Mono<Response<CreateMaterialResponse>> trainerCreateMaterial(@RequestBody CreateMaterialRequest request){
+        return commandExecutor.execute(CreateMaterialCommand.class, request)
+                .map(response -> ResponseHelper.status(response.getStatus(), response))
+                .subscribeOn(Schedulers.elastic());
+
+    }
+
+    @DeleteMapping(ApiPath.TRAINER_MATERIAL_DELETE)
+    public Mono<Response<DeleteMaterialResponse>> trainerDeleteMaterial(@RequestBody DeleteMaterialRequest request){
         return commandExecutor.execute(DeleteMaterialCommand.class, request)
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());

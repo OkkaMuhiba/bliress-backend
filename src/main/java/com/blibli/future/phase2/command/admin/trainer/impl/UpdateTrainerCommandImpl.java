@@ -2,7 +2,6 @@ package com.blibli.future.phase2.command.admin.trainer.impl;
 
 import com.blibli.future.phase2.command.admin.trainer.UpdateTrainerCommand;
 import com.blibli.future.phase2.entity.User;
-import com.blibli.future.phase2.entity.enumerate.Division;
 import com.blibli.future.phase2.model.command.admin.trainer.UpdateTrainerRequest;
 import com.blibli.future.phase2.model.response.admin.trainer.UpdateTrainerResponse;
 import com.blibli.future.phase2.repository.UserRepository;
@@ -31,7 +30,7 @@ public class UpdateTrainerCommandImpl implements UpdateTrainerCommand {
 
     private User updateTrainer(User user, UpdateTrainerRequest request){
         user.setUsername(request.getName());
-        user.setDivision(Division.valueOf(request.getDivision()));
+        user.setDivision(request.getDivision());
         user.setUsermail(request.getEmail());
 
         return user;

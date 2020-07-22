@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -23,7 +24,7 @@ public class Training {
 
     private Integer stage;
 
-    private Date date;
+    private LocalDate date;
 
     private Timestamp startedAt;
 

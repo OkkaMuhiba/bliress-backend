@@ -12,6 +12,8 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service
@@ -33,7 +35,7 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
     }
 
     private Training updateTraining(Training training, UpdateTrainingRequest request){
-        training.setDate(Date.from(Instant.parse(request.getDate())));
+        training.setDate(LocalDate.parse(request.getDate(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
         training.setStartedAt(Timestamp.from(Instant.parse(request.getTimeStart())));
         training.setEndedAt(Timestamp.from(Instant.parse(request.getTimeFinish())));
         training.setLocation(request.getLocation());

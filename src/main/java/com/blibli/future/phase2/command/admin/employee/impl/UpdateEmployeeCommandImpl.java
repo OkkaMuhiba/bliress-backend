@@ -2,7 +2,6 @@ package com.blibli.future.phase2.command.admin.employee.impl;
 
 import com.blibli.future.phase2.command.admin.employee.UpdateEmployeeCommand;
 import com.blibli.future.phase2.entity.User;
-import com.blibli.future.phase2.entity.enumerate.Division;
 import com.blibli.future.phase2.model.command.admin.employee.UpdateEmployeeRequest;
 import com.blibli.future.phase2.model.response.admin.employee.UpdateEmployeeResponse;
 import com.blibli.future.phase2.repository.UserRepository;
@@ -13,6 +12,8 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class UpdateEmployeeCommandImpl implements UpdateEmployeeCommand {
@@ -35,9 +36,9 @@ public class UpdateEmployeeCommandImpl implements UpdateEmployeeCommand {
     private User updateEmployee(User user, UpdateEmployeeRequest request){
         user.setUsername(request.getName());
         user.setUsermail(request.getEmail());
-        user.setDivision(Division.valueOf(request.getDivision()));
+        user.setDivision(request.getDivision());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setBirthDate(Date.from(Instant.parse(request.getBirthdate())));
+        user.setBirthDate(LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("dd-mm-yyyy")));
         user.setGender(request.getGender().toUpperCase());
 
         return user;
