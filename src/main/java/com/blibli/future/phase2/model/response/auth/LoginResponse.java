@@ -1,4 +1,4 @@
-package com.blibli.future.phase2.model.response;
+package com.blibli.future.phase2.model.response.auth;
 
 import com.blibli.future.phase2.entity.User;
 import lombok.AllArgsConstructor;
@@ -7,9 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class CreateUserResponse {
+public class LoginResponse {
+    private String token;
+
+    private String message;
+
     private User user;
 }

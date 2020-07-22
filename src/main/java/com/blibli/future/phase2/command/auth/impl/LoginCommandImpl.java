@@ -4,15 +4,13 @@ import com.blibli.future.phase2.command.auth.LoginCommand;
 import com.blibli.future.phase2.component.CustomPasswordEncoder;
 import com.blibli.future.phase2.component.JwtTokenProvider;
 import com.blibli.future.phase2.entity.User;
-import com.blibli.future.phase2.model.command.LoginRequest;
-import com.blibli.future.phase2.model.response.LoginResponse;
+import com.blibli.future.phase2.model.command.auth.LoginRequest;
+import com.blibli.future.phase2.model.response.auth.LoginResponse;
 import com.blibli.future.phase2.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.util.function.Supplier;
 
 @Slf4j
 @Service

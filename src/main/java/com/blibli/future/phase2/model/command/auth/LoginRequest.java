@@ -1,4 +1,4 @@
-package com.blibli.future.phase2.model.command;
+package com.blibli.future.phase2.model.command.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

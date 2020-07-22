@@ -9,6 +9,7 @@ public class ApiPath {
     public static final String AUTH = BASE_PATH + "/auth";
     public static final String AUTH_LOGIN = AUTH + "/login";
     public static final String AUTH_REGISTER = AUTH + "/register";
+    public static final String AUTH_CHANGE_PASSWORD = AUTH + "/password";
 
     /**
      * ADMIN PATH
@@ -30,6 +31,7 @@ public class ApiPath {
     public static final String ADMIN_EMPLOYEE_GET_BY_ID = ADMIN_EMPLOYEE + "/detail";
     public static final String ADMIN_EMPLOYEE_UPDATE = ADMIN_EMPLOYEE + "";
     public static final String ADMIN_EMPLOYEE_DELETE = ADMIN_EMPLOYEE + "";
+    public static final String ADMIN_EMPLOYEE_RESET_PASSWORD = ADMIN_EMPLOYEE + "/reset";
 
     // Training
     public static final String ADMIN_TRAINING = ADMIN_BATCH + "/training";
@@ -47,6 +49,7 @@ public class ApiPath {
     public static final String ADMIN_TRAINER_GET_BY_ID = ADMIN_TRAINER + "/detail";
     public static final String ADMIN_TRAINER_UPDATE = ADMIN_TRAINER + "";
     public static final String ADMIN_TRAINER_DELETE = ADMIN_TRAINER + "";
+    public static final String ADMIN_TRAINER_RESET_PASSWORD = ADMIN_TRAINER + "/reset";
 
     // Material
     public static final String ADMIN_MATERIAL = BASE_ADMIN + "/material";

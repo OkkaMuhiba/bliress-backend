@@ -7,11 +7,13 @@ import com.blibli.future.phase2.model.response.admin.test.UpdateTestResponse;
 import com.blibli.future.phase2.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.sql.Date;
 import java.time.Instant;
 
+@Service
 public class UpdateTestCommandImpl implements UpdateTestCommand {
     @Autowired
     private TestRepository testRepository;
