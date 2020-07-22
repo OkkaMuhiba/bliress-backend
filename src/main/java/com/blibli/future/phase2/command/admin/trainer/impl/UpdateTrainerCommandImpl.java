@@ -21,7 +21,7 @@ public class UpdateTrainerCommandImpl implements UpdateTrainerCommand {
         return Mono.from(getTrainer(request.getId()))
                 .map(user -> updateTrainer(user, request))
                 .flatMap(user -> userRepository.save(user))
-                .map(user -> createResponse(HttpStatus.ACCEPTED, "Traine's data has been updated"))
+                .map(user -> createResponse(HttpStatus.ACCEPTED, "Trainer's data has been updated"))
                 .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Trainer's data cannot be updated"));
     }
 

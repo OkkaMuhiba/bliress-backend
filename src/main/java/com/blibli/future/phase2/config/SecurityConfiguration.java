@@ -2,6 +2,7 @@ package com.blibli.future.phase2.config;
 
 import com.blibli.future.phase2.component.AuthenticationManager;
 import com.blibli.future.phase2.component.SecurityContextRepository;
+import com.blibli.future.phase2.controller.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,8 +53,9 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeExchange()
                 .pathMatchers(AUTH_WHITELIST).permitAll()
-                .pathMatchers("/api/admin/**").hasRole("ADMIN")
-                .pathMatchers("/api/auth/**").permitAll()
+                .pathMatchers(ApiPath.AUTH_CHANGE_PASSWORD).authenticated()
+                .pathMatchers(ApiPath.BASE_ADMIN + "/**").hasRole("ADMIN")
+                .pathMatchers(ApiPath.AUTH + "/**").permitAll()
                 .anyExchange().denyAll()
                 .and().build();
     }
