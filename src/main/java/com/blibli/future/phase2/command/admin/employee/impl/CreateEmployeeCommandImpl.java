@@ -58,7 +58,7 @@ public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
                 .phoneNumber(request.getPhoneNumber())
                 .batch(request.getBatchId())
                 .stage(1)
-                .registeredAt(LocalDateTime.from(Instant.now()))
+                .registeredAt(LocalDateTime.now())
                 .build();
     }
 

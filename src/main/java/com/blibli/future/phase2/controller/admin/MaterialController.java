@@ -36,15 +36,19 @@ public class MaterialController {
     }
 
     @GetMapping(ApiPath.ADMIN_MATERIAL_GET_ALL)
-    public Mono<Response<GetAllMaterialResponse>> adminGetAllMaterial(@RequestBody GetAllMaterialRequest request){
-        return commandExecutor.execute(GetAllMaterialCommand.class, request)
+    public Mono<Response<GetAllMaterialResponse>> adminGetAllMaterial(@RequestParam String batchId, @RequestParam String training){
+        return commandExecutor.execute(GetAllMaterialCommand.class, GetAllMaterialRequest.builder()
+                .batchId(batchId).training(training).build()
+        )
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
 
     @DeleteMapping(ApiPath.ADMIN_MATERIAL_DELETE)
-    public Mono<Response<DeleteMaterialResponse>> adminDeleteMaterial(@RequestBody DeleteMaterialRequest request){
-        return commandExecutor.execute(DeleteMaterialCommand.class, request)
+    public Mono<Response<DeleteMaterialResponse>> adminDeleteMaterial(@RequestParam String materialId, @RequestParam String batchId, @RequestParam String training){
+        return commandExecutor.execute(DeleteMaterialCommand.class, DeleteMaterialRequest.builder()
+                .batchId(batchId).training(training).materialId(materialId).build()
+        )
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }
@@ -58,8 +62,10 @@ public class MaterialController {
     }
 
     @DeleteMapping(ApiPath.TRAINER_MATERIAL_DELETE)
-    public Mono<Response<DeleteMaterialResponse>> trainerDeleteMaterial(@RequestBody DeleteMaterialRequest request){
-        return commandExecutor.execute(DeleteMaterialCommand.class, request)
+    public Mono<Response<DeleteMaterialResponse>> trainerDeleteMaterial(@RequestParam String materialId, @RequestParam String batchId, @RequestParam String training){
+        return commandExecutor.execute(DeleteMaterialCommand.class, DeleteMaterialRequest.builder()
+                .batchId(batchId).training(training).materialId(materialId).build()
+        )
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }

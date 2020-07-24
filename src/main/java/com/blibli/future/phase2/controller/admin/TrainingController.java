@@ -40,8 +40,10 @@ public class TrainingController {
     }
 
     @GetMapping(ApiPath.ADMIN_TRAINING_GET_BY_ID)
-    public Mono<Response<Training>> adminGetByIdTraining(@RequestBody GetByIdTrainingRequest request){
-        return commandExecutor.execute(GetByIdTrainingCommand.class, request)
+    public Mono<Response<Training>> adminGetByIdTraining(@RequestParam String batchId, @RequestParam String training){
+        return commandExecutor.execute(GetByIdTrainingCommand.class,
+                GetByIdTrainingRequest.builder().batchId(batchId).training(training).build()
+        )
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
@@ -54,8 +56,10 @@ public class TrainingController {
     }
 
     @DeleteMapping(ApiPath.ADMIN_TRAINING_DELETE)
-    public Mono<Response<DeleteTrainingResponse>> adminDeleteTraining(@RequestBody DeleteTrainingRequest request){
-        return commandExecutor.execute(DeleteTrainingCommand.class, request)
+    public Mono<Response<DeleteTrainingResponse>> adminDeleteTraining(@RequestParam String batchId, @RequestParam String training){
+        return commandExecutor.execute(DeleteTrainingCommand.class, DeleteTrainingRequest.builder()
+                .batchId(batchId).training(training).build()
+        )
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
                 .subscribeOn(Schedulers.elastic());
     }
@@ -68,8 +72,10 @@ public class TrainingController {
     }
 
     @GetMapping(ApiPath.TRAINER_TRAINING_GET_BY_ID)
-    public Mono<Response<Training>> trainerGetByIdTraining(@RequestBody GetByIdTrainingRequest request){
-        return commandExecutor.execute(GetByIdTrainingCommand.class, request)
+    public Mono<Response<Training>> trainerGetByIdTraining(@RequestParam String batchId, @RequestParam String training){
+        return commandExecutor.execute(GetByIdTrainingCommand.class, GetByIdTrainingRequest.builder()
+                .batchId(batchId).training(training).build()
+        )
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }

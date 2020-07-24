@@ -35,8 +35,10 @@ public class TestController {
     }
 
     @GetMapping(ApiPath.ADMIN_TEST_GET_QUESTION)
-    public Mono<Response<Test>> adminGetByIdTest(@RequestBody GetByIdTestRequest request){
-        return commandExecutor.execute(GetByIdTestCommand.class, request)
+    public Mono<Response<Test>> adminGetByIdTest(@RequestParam String batchId, @RequestParam String training, @RequestParam String materialId){
+        return commandExecutor.execute(GetByIdTestCommand.class, GetByIdTestRequest.builder()
+                .batchId(batchId).training(training).materialId(materialId).build()
+        )
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }
@@ -56,8 +58,10 @@ public class TestController {
     }
 
     @GetMapping(ApiPath.TRAINER_TEST_GET_QUESTION)
-    public Mono<Response<Test>> trainerGetByIdTest(@RequestBody GetByIdTestRequest request){
-        return commandExecutor.execute(GetByIdTestCommand.class, request)
+    public Mono<Response<Test>> trainerGetByIdTest(@RequestParam String batchId, @RequestParam String training, @RequestParam String materialId){
+        return commandExecutor.execute(GetByIdTestCommand.class, GetByIdTestRequest.builder()
+                .batchId(batchId).training(training).materialId(materialId).build()
+        )
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
     }

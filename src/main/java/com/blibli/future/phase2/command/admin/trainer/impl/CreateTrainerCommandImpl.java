@@ -50,7 +50,7 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .division(request.getDivision())
                 .roles(new HashSet<>(Collections.singleton(Role.ROLE_TRAINER)))
-                .registeredAt(LocalDateTime.from(Instant.now()))
+                .registeredAt(LocalDateTime.now())
                 .build();
     }
 
