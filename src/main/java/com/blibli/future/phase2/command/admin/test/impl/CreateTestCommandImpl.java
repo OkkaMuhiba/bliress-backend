@@ -55,7 +55,7 @@ public class CreateTestCommandImpl implements CreateTestCommand {
                 .available(request.getAvailable())
                 .closed(request.getClosed())
                 .timeLimit(request.getTimeLimit())
-                .questions(new HashSet<>(Arrays.asList(request.getQuestions())))
+                .questions(request.getQuestions())
                 .build();
     }
 
