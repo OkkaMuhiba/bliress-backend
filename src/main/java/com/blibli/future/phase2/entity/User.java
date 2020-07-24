@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,9 +50,9 @@ public class User implements UserDetails {
 
     private Integer stage;
 
-    private Timestamp birthDate;
+    private String birthDate;
 
-    private Timestamp registeredAt;
+    private LocalDateTime registeredAt;
 
     @JsonIgnore
     @Override

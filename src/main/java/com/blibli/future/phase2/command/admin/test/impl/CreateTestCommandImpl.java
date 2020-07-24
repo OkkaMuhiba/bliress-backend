@@ -1,6 +1,7 @@
 package com.blibli.future.phase2.command.admin.test.impl;
 
 import com.blibli.future.phase2.command.admin.test.CreateTestCommand;
+import com.blibli.future.phase2.entity.Question;
 import com.blibli.future.phase2.entity.Test;
 import com.blibli.future.phase2.model.command.admin.test.CreateTestRequest;
 import com.blibli.future.phase2.model.response.admin.test.CreateTestResponse;
@@ -16,6 +17,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
 
 @Service
@@ -48,10 +52,10 @@ public class CreateTestCommandImpl implements CreateTestCommand {
                 .batchId(request.getBatchId())
                 .stage(Integer.parseInt(request.getTraining()))
                 .materialId(request.getMaterialId())
-                .available(Timestamp.from(convertStringDateToInstant(request.getAvailable())))
-                .closed(Timestamp.from(convertStringDateToInstant(request.getClosed())))
+                .available(request.getAvailable())
+                .closed(request.getClosed())
                 .timeLimit(request.getTimeLimit())
-                .questions(request.getQuestions())
+                .questions(new HashSet<>(Arrays.asList(request.getQuestions())))
                 .build();
     }
 

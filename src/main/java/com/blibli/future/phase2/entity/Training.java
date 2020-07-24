@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -24,11 +25,11 @@ public class Training {
 
     private Integer stage;
 
-    private Timestamp date;
+    private String date;
 
-    private Timestamp startedAt;
+    private String startedAt;
 
-    private Timestamp endedAt;
+    private String endedAt;
 
     private String location;
 

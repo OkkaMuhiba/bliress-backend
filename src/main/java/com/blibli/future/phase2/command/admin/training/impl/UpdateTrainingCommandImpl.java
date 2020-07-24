@@ -36,9 +36,9 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
     }
 
     private Training updateTraining(Training training, UpdateTrainingRequest request){
-        training.setDate(Timestamp.from(convertStringDateToInstant(request.getDate())));
-        training.setStartedAt(Timestamp.from(Instant.parse(request.getTimeStart())));
-        training.setEndedAt(Timestamp.from(Instant.parse(request.getTimeFinish())));
+        training.setDate(request.getDate());
+        training.setStartedAt(request.getTimeStart());
+        training.setEndedAt(request.getTimeFinish());
         training.setLocation(request.getLocation());
         training.setTrainer(request.getTrainerId());
 
@@ -50,10 +50,5 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
                 .status(status)
                 .message(message)
                 .build();
-    }
-
-    private Instant convertStringDateToInstant(String date){
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-                .atStartOfDay(ZoneId.systemDefault()).toInstant();
     }
 }

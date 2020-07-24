@@ -40,8 +40,8 @@ public class UpdateTestCommandImpl implements UpdateTestCommand {
     }
 
     private Test updateTest(Test test, UpdateTestRequest request){
-        test.setAvailable(Timestamp.from(convertStringDateToInstant(request.getAvailable())));
-        test.setClosed(Timestamp.from(convertStringDateToInstant(request.getClosed())));
+        test.setAvailable(request.getAvailable());
+        test.setClosed(request.getClosed());
         test.setTimeLimit(request.getTimeLimit());
         test.setQuestions(request.getQuestions());
 

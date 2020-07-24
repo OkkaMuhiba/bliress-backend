@@ -27,9 +27,9 @@ public class Test {
 
     private String materialId;
 
-    private Timestamp available;
+    private String available;
 
-    private Timestamp closed;
+    private String closed;
 
     private Integer timeLimit;
 

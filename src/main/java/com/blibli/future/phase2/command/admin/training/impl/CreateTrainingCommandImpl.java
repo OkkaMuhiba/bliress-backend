@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
@@ -25,8 +23,9 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
 
     @Override
     public Mono<CreateTrainingResponse> execute(CreateTrainingRequest request) {
-        return Mono.fromCallable(() -> createTraining(request))
-                .flatMap(training -> trainingRepository.save(training))
+        return Mono.from(checkIfTrainingIsExist(request))
+                .flatMap(result -> (result) ? Mono.just(null) : Mono.just(createTraining(request)))
+                .flatMap(training -> (training == null) ? Mono.just(null) : trainingRepository.save(training))
                 .map(training -> createResponse(HttpStatus.ACCEPTED, "Training has been created"))
                 .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Training cannot be created"));
     }
@@ -35,9 +34,9 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
         return Training.builder()
                 .trainingId(UUID.randomUUID().toString())
                 .batchId(request.getBatchId())
-                .date(Timestamp.from(convertStringDateToInstant(request.getDate())))
-                .startedAt(Timestamp.from(Instant.parse(request.getTimeStart())))
-                .endedAt(Timestamp.from(Instant.parse(request.getTimeFinish())))
+                .date(request.getDate())
+                .startedAt(request.getTimeStart())
+                .endedAt(request.getTimeFinish())
                 .location(request.getLocation())
                 .stage(Integer.parseInt(request.getTraining()))
                 .trainer(request.getTrainerId())
@@ -51,8 +50,9 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
                 .build();
     }
 
-    private Instant convertStringDateToInstant(String date){
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-                .atStartOfDay(ZoneId.systemDefault()).toInstant();
+    public Mono<Boolean> checkIfTrainingIsExist(CreateTrainingRequest request){
+        return Mono.from(trainingRepository.findByBatchIdAndStage(request.getBatchId(), Integer.parseInt(request.getTraining()))
+                .switchIfEmpty(Mono.just(Training.builder().build()))
+                .map(user -> user.getTrainingId() != null));
     }
 }

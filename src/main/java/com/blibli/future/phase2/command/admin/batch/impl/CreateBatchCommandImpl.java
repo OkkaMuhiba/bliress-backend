@@ -34,9 +34,9 @@ public class CreateBatchCommandImpl implements CreateBatchCommand {
     }
 
     private Batch createBatch(CreateBatchRequest request){
-        String monthText = getMonth(Integer.parseInt(request.getBatch())).substring(0, 3);
+        String monthText = getMonth(Integer.parseInt(request.getBatch()));
         String year = request.getYear();
-        String batchId = monthText + "-" + year;
+        String batchId = monthText.substring(0, 3) + "-" + year;
 
         Batch newBatch = Batch.builder()
                 .batchId(batchId)

@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.UUID;
@@ -49,7 +50,7 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .division(request.getDivision())
                 .roles(new HashSet<>(Collections.singleton(Role.ROLE_TRAINER)))
-                .registeredAt(Timestamp.from(Instant.now()))
+                .registeredAt(LocalDateTime.from(Instant.now()))
                 .build();
     }
 

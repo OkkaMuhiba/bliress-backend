@@ -40,7 +40,7 @@ public class UpdateEmployeeCommandImpl implements UpdateEmployeeCommand {
         user.setUsermail(request.getEmail());
         user.setDivision(request.getDivision());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setBirthDate(Timestamp.from(convertStringDateToInstant(request.getBirthdate())));
+        user.setBirthDate(request.getBirthdate());
         user.setGender(request.getGender().toUpperCase());
 
         return user;
