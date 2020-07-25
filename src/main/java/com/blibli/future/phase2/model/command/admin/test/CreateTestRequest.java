@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Data
@@ -19,8 +20,10 @@ public class CreateTestRequest {
 
      private String materialId;
 
+     @Pattern(regexp = "^[0-2]\\d-[0-1]\\d-\\d\\d\\d\\d$", message = "Invalid Date")
      private String available;
 
+     @Pattern(regexp = "^[0-2]\\d-[0-1]\\d-\\d\\d\\d\\d$", message = "Invalid Date")
      private String closed;
 
      private Integer timeLimit;

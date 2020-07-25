@@ -23,4 +23,12 @@ public class TrainingMaterial {
     private String materialName;
 
     private String file;
+
+    private Boolean testExist;
+
+    private String testAvailable;
+
+    private String testClosed;
+
+    private Integer testTimeLimit;
 }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,7 @@ public class CreateEmployeeRequest {
 
     private String division;
 
+    @Pattern(regexp = "^[0-2]\\d-[0-1]\\d-\\d\\d\\d\\d$", message = "Invalid Date")
     private String birthdate;
 
     private String gender;

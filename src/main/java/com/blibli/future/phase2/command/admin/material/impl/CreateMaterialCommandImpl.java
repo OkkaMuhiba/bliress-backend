@@ -30,6 +30,7 @@ public class CreateMaterialCommandImpl implements CreateMaterialCommand {
                 .batchId(request.getBatchId())
                 .stage(Integer.parseInt(request.getTraining()))
                 .materialName(request.getMaterialName())
+                .testExist(Boolean.FALSE)
                 .build();
     }
 
