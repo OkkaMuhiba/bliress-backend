@@ -51,7 +51,7 @@ public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
                 .username(request.getName())
                 .usermail(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(Collections.singleton(Role.ROLE_USER))
+                .roles(Collections.singleton(Role.ROLE_EMPLOYEE))
                 .division(request.getDivision())
                 .gender(request.getGender().toUpperCase())
                 .birthDate(request.getBirthdate())

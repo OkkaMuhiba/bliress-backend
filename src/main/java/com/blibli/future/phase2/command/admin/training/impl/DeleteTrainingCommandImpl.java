@@ -21,7 +21,7 @@ public class DeleteTrainingCommandImpl implements DeleteTrainingCommand {
                 .switchIfEmpty(Mono.error(NullPointerException::new))
                 .flatMap(training -> trainingRepository.delete(training))
                 .thenReturn(createResponse(HttpStatus.OK, "Training has been deleted"))
-                .onErrorReturn(createResponse(HttpStatus.OK, "Training does not exist"));
+                .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Training does not exist"));
     }
 
     private DeleteTrainingResponse createResponse(HttpStatus status, String message){

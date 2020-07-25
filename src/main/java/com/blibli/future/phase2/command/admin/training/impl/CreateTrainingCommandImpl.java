@@ -2,13 +2,16 @@ package com.blibli.future.phase2.command.admin.training.impl;
 
 import com.blibli.future.phase2.command.admin.training.CreateTrainingCommand;
 import com.blibli.future.phase2.entity.Training;
+import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.admin.training.CreateTrainingRequest;
 import com.blibli.future.phase2.model.response.admin.training.CreateTrainingResponse;
 import com.blibli.future.phase2.repository.TrainingRepository;
+import com.blibli.future.phase2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.sql.Timestamp;
 import java.time.*;
@@ -20,6 +23,9 @@ import java.util.UUID;
 public class CreateTrainingCommandImpl implements CreateTrainingCommand {
     @Autowired
     private TrainingRepository trainingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Mono<CreateTrainingResponse> execute(CreateTrainingRequest request) {
@@ -39,7 +45,8 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
                 .endedAt(request.getTimeFinish())
                 .location(request.getLocation())
                 .stage(Integer.parseInt(request.getTraining()))
-                .trainer(request.getTrainerId())
+                .trainerId(request.getTrainerId())
+                .trainerName(request.getTrainerName())
                 .build();
     }
 
@@ -54,5 +61,9 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
         return Mono.from(trainingRepository.findByBatchIdAndStage(request.getBatchId(), Integer.parseInt(request.getTraining()))
                 .switchIfEmpty(Mono.just(Training.builder().build()))
                 .map(user -> user.getTrainingId() != null));
+    }
+
+    private User getTrainerFromId(String trainerId){
+        return userRepository.findById(trainerId).block();
     }
 }

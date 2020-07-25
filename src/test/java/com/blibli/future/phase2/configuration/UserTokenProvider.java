@@ -22,7 +22,7 @@ public class UserTokenProvider {
             .usermail("user@mail.com")
             .username("user")
             .password("password")
-            .roles(new HashSet<>(Collections.singleton(Role.ROLE_USER)))
+            .roles(new HashSet<>(Collections.singleton(Role.ROLE_EMPLOYEE)))
             .build();
 
     private static User trainerRole = User.builder()
@@ -43,7 +43,7 @@ public class UserTokenProvider {
         User selectedUser;
 
         switch (role) {
-            case "ROLE_USER" :
+            case "ROLE_EMPLOYEE" :
                 selectedUser = userRole;
                 break;
             case "ROLE_TRAINER" :

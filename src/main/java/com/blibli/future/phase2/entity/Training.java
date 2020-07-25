@@ -33,5 +33,7 @@ public class Training {
 
     private String location;
 
-    private String trainer;
+    private String trainerId;
+
+    private String trainerName;
 }

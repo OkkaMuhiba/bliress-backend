@@ -2,9 +2,11 @@ package com.blibli.future.phase2.command.admin.training.impl;
 
 import com.blibli.future.phase2.command.admin.training.UpdateTrainingCommand;
 import com.blibli.future.phase2.entity.Training;
+import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.admin.training.UpdateTrainingRequest;
 import com.blibli.future.phase2.model.response.admin.training.UpdateTrainingResponse;
 import com.blibli.future.phase2.repository.TrainingRepository;
+import com.blibli.future.phase2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ import java.util.Date;
 public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
     @Autowired
     private TrainingRepository trainingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Mono<UpdateTrainingResponse> execute(UpdateTrainingRequest request) {
@@ -40,7 +45,8 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
         training.setStartedAt(request.getTimeStart());
         training.setEndedAt(request.getTimeFinish());
         training.setLocation(request.getLocation());
-        training.setTrainer(request.getTrainerId());
+        training.setTrainerId(request.getTrainerId());
+        training.setTrainerName(request.getTrainerName());
 
         return training;
     }
@@ -50,5 +56,9 @@ public class UpdateTrainingCommandImpl implements UpdateTrainingCommand {
                 .status(status)
                 .message(message)
                 .build();
+    }
+
+    private User getTrainerFromId(String trainerId){
+        return userRepository.findById(trainerId).block();
     }
 }

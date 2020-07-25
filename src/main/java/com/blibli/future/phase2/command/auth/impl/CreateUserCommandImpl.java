@@ -40,7 +40,7 @@ public class CreateUserCommandImpl implements CreateUserCommand {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        roles.add(Role.ROLE_USER);
+        roles.add(Role.ROLE_EMPLOYEE);
         user.setRoles(roles);
         return user;
     }

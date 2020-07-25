@@ -24,4 +24,6 @@ public class CreateTrainingRequest {
     private String timeFinish;
 
     private String trainerId;
+
+    private String trainerName;
 }

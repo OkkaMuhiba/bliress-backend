@@ -23,4 +23,6 @@ public class UpdateTrainingRequest {
     private String timeFinish;
 
     private String trainerId;
+
+    private String trainerName;
 }

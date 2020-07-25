@@ -29,7 +29,7 @@ public class TrainingController {
     public Mono<Response<CreateTrainingResponse>> adminCreateTraining(@RequestBody CreateTrainingRequest request){
         return commandExecutor.execute(CreateTrainingCommand.class, request)
                 .map(response -> ResponseHelper.status(response.getStatus(), response))
-                .subscribeOn(Schedulers.elastic());
+                .subscribeOn(Schedulers.parallel());
     }
 
     @GetMapping(ApiPath.ADMIN_TRAINING_GET_ALL)

@@ -24,7 +24,7 @@ public class GetAllEmployeeCommandImpl implements GetAllEmployeeCommand {
     }
 
     private GetAllEmployeeResponse getAllEmployee(){
-        Set<Role> roles = Collections.singleton(Role.ROLE_USER);
+        Set<Role> roles = Collections.singleton(Role.ROLE_EMPLOYEE);
 
         return GetAllEmployeeResponse.builder()
                 .employeeList(
