@@ -23,6 +23,7 @@ public class GetByIdTestCommandImpl implements GetByIdTestCommand {
                 request.getBatchId(),
                 Integer.parseInt(request.getTraining()),
                 request.getMaterialId()
-        );
+        )
+                .switchIfEmpty(Mono.just(Test.builder().build()));
     }
 }

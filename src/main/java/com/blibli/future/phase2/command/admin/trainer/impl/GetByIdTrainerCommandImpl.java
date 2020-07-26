@@ -14,6 +14,7 @@ public class GetByIdTrainerCommandImpl implements GetByIdTrainerCommand {
 
     @Override
     public Mono<User> execute(String request) {
-        return userRepository.findById(request);
+        return userRepository.findById(request)
+                .switchIfEmpty(Mono.just(User.builder().build()));
     }
 }

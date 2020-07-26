@@ -14,15 +14,8 @@ public class GetByIdBatchCommandImpl implements GetByIdBatchCommand {
     private BatchRepository batchRepository;
 
     @Override
-    public Mono<GetByIdBatchResponse> execute(String request) {
+    public Mono<Batch> execute(String request) {
         return batchRepository.findById(request)
-                .map(batch -> createResponse(batch))
-                .onErrorReturn(createResponse(null));
-    }
-
-    private GetByIdBatchResponse createResponse(Batch batch){
-        return GetByIdBatchResponse.builder()
-                .batch(batch)
-                .build();
+                .switchIfEmpty(Mono.just(Batch.builder().build()));
     }
 }

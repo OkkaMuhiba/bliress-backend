@@ -2,6 +2,7 @@ package com.blibli.future.phase2.controller.admin;
 
 import com.blibli.future.phase2.command.admin.batch.*;
 import com.blibli.future.phase2.controller.ApiPath;
+import com.blibli.future.phase2.entity.Batch;
 import com.blibli.future.phase2.model.command.BlankRequest;
 import com.blibli.future.phase2.model.command.admin.batch.CreateBatchRequest;
 import com.blibli.future.phase2.model.response.admin.batch.*;
@@ -42,7 +43,7 @@ public class BatchController {
     }
 
     @GetMapping(ApiPath.ADMIN_BATCH_GET_BY_ID)
-    public Mono<Response<GetByIdBatchResponse>> getById(@RequestParam String batchId){
+    public Mono<Response<Batch>> getById(@RequestParam String batchId){
         return commandExecutor.execute(GetByIdBatchCommand.class, batchId)
                 .map(response -> ResponseHelper.ok(response))
                 .subscribeOn(Schedulers.elastic());
