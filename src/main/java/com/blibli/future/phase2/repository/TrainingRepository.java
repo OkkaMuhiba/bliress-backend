@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 public interface TrainingRepository extends ReactiveMongoRepository<Training, String> {
     Mono<Training> findByBatchIdAndStage(String batchId, Integer stage);
 
-    Flux<Training> findAllByTrainerId(String trainerId);
+    Flux<Training> findAllByTrainerIdOrderByBatchIdAsc(String trainerId);
 
-    Flux<Training> findAllByBatchId(String batchId);
+    Flux<Training> findAllByBatchIdOrderByStageAsc(String batchId);
 }

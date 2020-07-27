@@ -32,7 +32,7 @@ public class GetAllTrainingCommandImpl implements GetAllTrainingCommand {
 
     public Set<Training> getAllTrainings(String request){
         return new HashSet<>(Collections.unmodifiableList(
-            trainingRepository.findAllByBatchId(request).collectList().block()
+            trainingRepository.findAllByBatchIdOrderByStageAsc(request).collectList().block()
         ));
     }
 

@@ -29,7 +29,7 @@ public class GetAllTrainerCommandImpl implements GetAllTrainerCommand {
         return GetAllTrainerResponse.builder()
                 .trainerList(
                         new HashSet<>(Collections.unmodifiableList(
-                                userRepository.findAllByRoles(roles).collectList().block()
+                                userRepository.findAllByRolesOrderByUsernameAsc(roles).collectList().block()
                         ))
                 )
                 .build();

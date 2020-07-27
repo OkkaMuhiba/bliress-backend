@@ -66,6 +66,11 @@ public class ApiPath {
     public static final String ADMIN_TEST_GET_QUESTION = ADMIN_TEST + "/preview";
     public static final String ADMIN_TEST_UPDATE = ADMIN_TEST + "";
 
+    // Notification
+    public static final String ADMIN_NOTIFICATION = BASE_ADMIN + "/notification";
+    public static final String ADMIN_NOTIFICATION_CREATE = ADMIN_NOTIFICATION + "";
+    public static final String ADMIN_NOTIFICATION_GET_ALL = ADMIN_NOTIFICATION + "";
+
     /**
      * TRAINER PATH
      */
@@ -100,6 +105,9 @@ public class ApiPath {
 
     // Notification
     public static final String EMPLOYEE_NOTIFICATION = BASE_EMPLOYEE + "/notification";
+    public static final String EMPLOYEE_NOTIFICATION_GET_ALL = EMPLOYEE_NOTIFICATION + "";
+    public static final String EMPLOYEE_NOTIFICATION_CHECK = EMPLOYEE_NOTIFICATION + "/trigger";
+    public static final String EMPLOYEE_NOTIFICATION_READ = EMPLOYEE_NOTIFICATION + "";
 
     // Test
     public static final String EMPLOYEE_TEST = BASE_EMPLOYEE + "/test";

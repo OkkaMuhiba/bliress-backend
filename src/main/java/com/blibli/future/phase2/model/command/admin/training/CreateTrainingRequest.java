@@ -17,7 +17,7 @@ public class CreateTrainingRequest {
 
     private String training;
 
-    @Pattern(regexp = "^[0-2]\\d-[0-1]\\d-\\d\\d\\d\\d$", message = "Invalid Date")
+    @Pattern(regexp = "^[0-3]\\d-[0-1]\\d-\\d\\d\\d\\d$", message = "Invalid Date")
     private String date;
 
     private String location;

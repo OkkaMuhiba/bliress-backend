@@ -11,7 +11,7 @@ import java.util.Set;
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
     Mono<User> findByUsermail(String usermail);
 
-    Flux<User> findAllByRoles(Set<Role> roles);
+    Flux<User> findAllByRolesOrderByUsernameAsc(Set<Role> roles);
 
-    Flux<User> findByBatch(String batch);
+    Flux<User> findAllByBatchOrderByUsernameAsc(String batch);
 }

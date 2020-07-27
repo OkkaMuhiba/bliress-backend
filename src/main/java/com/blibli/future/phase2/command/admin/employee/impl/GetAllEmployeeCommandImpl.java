@@ -29,7 +29,7 @@ public class GetAllEmployeeCommandImpl implements GetAllEmployeeCommand {
         return GetAllEmployeeResponse.builder()
                 .employeeList(
                         new HashSet<>(Collections.unmodifiableList(
-                                userRepository.findAllByRoles(roles).collectList().block()
+                                userRepository.findAllByRolesOrderByUsernameAsc(roles).collectList().block()
                         ))
                 )
                 .build();
