@@ -87,4 +87,23 @@ public class ApiPath {
     public static final String TRAINER_TRAINING = BASE_TRAINER + "/training";
     public static final String TRAINER_TRAINING_GET_ALL = TRAINER_TRAINING + "";
     public static final String TRAINER_TRAINING_GET_BY_ID = TRAINER_TRAINING + "/detail";
+
+    /**
+     * EMPLOYEE PATH
+     */
+    public static final String BASE_EMPLOYEE = BASE_PATH + "/employee";
+    public static final String EMPLOYEE_GET_BY_ID = BASE_EMPLOYEE + "";
+
+    // Material
+    public static final String EMPLOYEE_MATERIAL = BASE_EMPLOYEE + "/material";
+    public static final String EMPLOYEE_MATERIAL_GET_ALL = EMPLOYEE_MATERIAL + "";
+
+    // Notification
+    public static final String EMPLOYEE_NOTIFICATION = BASE_EMPLOYEE + "/notification";
+
+    // Test
+    public static final String EMPLOYEE_TEST = BASE_EMPLOYEE + "/test";
+
+    // Training
+    public static final String EMPLOYEE_TRAINING = BASE_EMPLOYEE + "/training";
 }

@@ -1,6 +1,7 @@
 package com.blibli.future.phase2.command.admin.employee.impl;
 
 import com.blibli.future.phase2.command.admin.employee.CreateEmployeeCommand;
+import com.blibli.future.phase2.component.CustomPasswordEncoder;
 import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.model.command.admin.employee.CreateEmployeeRequest;
@@ -12,14 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -28,7 +23,7 @@ public class CreateEmployeeCommandImpl implements CreateEmployeeCommand {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CustomPasswordEncoder passwordEncoder;
 
     @Override
     public Mono<CreateEmployeeResponse> execute(CreateEmployeeRequest request) {

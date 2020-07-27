@@ -55,6 +55,8 @@ public class SecurityConfiguration {
                 .pathMatchers(AUTH_WHITELIST).permitAll()
                 .pathMatchers(ApiPath.AUTH_CHANGE_PASSWORD).authenticated()
                 .pathMatchers(ApiPath.BASE_ADMIN + "/**").hasRole("ADMIN")
+                .pathMatchers(ApiPath.BASE_TRAINER + "/**").hasRole("TRAINER")
+                .pathMatchers(ApiPath.BASE_EMPLOYEE + "/**").hasRole("EMPLOYEE")
                 .pathMatchers(ApiPath.AUTH + "/**").permitAll()
                 .anyExchange().denyAll()
                 .and().build();
