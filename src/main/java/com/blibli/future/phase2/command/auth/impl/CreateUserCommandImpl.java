@@ -1,6 +1,7 @@
 package com.blibli.future.phase2.command.auth.impl;
 
 import com.blibli.future.phase2.command.auth.CreateUserCommand;
+import com.blibli.future.phase2.component.CustomPasswordEncoder;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.auth.CreateUserRequest;
@@ -22,7 +23,7 @@ public class CreateUserCommandImpl implements CreateUserCommand {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CustomPasswordEncoder passwordEncoder;
 
     @Override
     public Mono<CreateUserResponse> execute(CreateUserRequest request) {

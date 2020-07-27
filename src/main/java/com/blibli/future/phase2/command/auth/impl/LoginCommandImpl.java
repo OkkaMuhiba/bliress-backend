@@ -7,6 +7,7 @@ import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.auth.LoginRequest;
 import com.blibli.future.phase2.model.response.auth.LoginResponse;
 import com.blibli.future.phase2.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

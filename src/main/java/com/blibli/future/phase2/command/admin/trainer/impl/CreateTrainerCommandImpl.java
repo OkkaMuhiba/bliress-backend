@@ -1,6 +1,7 @@
 package com.blibli.future.phase2.command.admin.trainer.impl;
 
 import com.blibli.future.phase2.command.admin.trainer.CreateTrainerCommand;
+import com.blibli.future.phase2.component.CustomPasswordEncoder;
 import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.entity.enumerate.Role;
 import com.blibli.future.phase2.model.command.admin.trainer.CreateTrainerRequest;
@@ -12,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,7 +24,7 @@ public class CreateTrainerCommandImpl implements CreateTrainerCommand {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CustomPasswordEncoder passwordEncoder;
 
     @Override
     public Mono<CreateTrainerResponse> execute(CreateTrainerRequest request) {
