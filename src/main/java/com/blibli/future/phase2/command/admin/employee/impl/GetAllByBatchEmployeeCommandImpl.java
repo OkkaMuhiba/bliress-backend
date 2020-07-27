@@ -24,7 +24,7 @@ public class GetAllByBatchEmployeeCommandImpl implements GetAllByBatchEmployeeCo
         return GetAllByBatchEmployeeResponse.builder()
                 .employeeList(
                         new HashSet<>(Collections.unmodifiableList(
-                                userRepository.findByBatch(request).collectList().block()
+                                userRepository.findAllByBatchOrderByUsernameAsc(request).collectList().block()
                         ))
                 )
                 .build();

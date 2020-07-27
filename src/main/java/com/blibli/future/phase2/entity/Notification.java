@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,11 +20,17 @@ public class Notification {
 
     private String sender;
 
-    private String userId;
+    private String employeeId;
 
-    private String group;
+    private String batch;
 
     private String title;
 
     private String message;
+
+    private Boolean isRead;
+
+    private Boolean returnToAdmin;
+
+    private LocalDateTime createdAt;
 }

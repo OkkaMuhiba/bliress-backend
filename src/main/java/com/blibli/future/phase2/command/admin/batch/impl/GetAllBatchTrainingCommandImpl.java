@@ -34,7 +34,7 @@ public class GetAllBatchTrainingCommandImpl implements GetAllBatchTrainingComman
     }
 
     private BatchTrainingResponse createData(Batch batch){
-        List<Training> trainings = trainingRepository.findAllByBatchId(batch.getBatchId()).collectList().block();
+        List<Training> trainings = trainingRepository.findAllByBatchIdOrderByStageAsc(batch.getBatchId()).collectList().block();
 
         return BatchTrainingResponse.builder()
                 .batch(batch)

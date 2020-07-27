@@ -24,7 +24,7 @@ public class GetAllByTrainerIdTrainingCommandImpl implements GetAllByTrainerIdTr
         return GetAllByTrainerIdResponse.builder()
                 .trainingList(
                         new HashSet<>(Collections.unmodifiableList(
-                                trainingRepository.findAllByTrainerId(request).collectList().block()
+                                trainingRepository.findAllByTrainerIdOrderByBatchIdAsc(request).collectList().block()
                         )))
                 .build();
     }
