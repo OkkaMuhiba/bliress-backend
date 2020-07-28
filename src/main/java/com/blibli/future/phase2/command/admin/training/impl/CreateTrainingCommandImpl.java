@@ -2,9 +2,11 @@ package com.blibli.future.phase2.command.admin.training.impl;
 
 import com.blibli.future.phase2.command.admin.training.CreateTrainingCommand;
 import com.blibli.future.phase2.entity.Training;
+import com.blibli.future.phase2.entity.TrainingAttendance;
 import com.blibli.future.phase2.entity.User;
 import com.blibli.future.phase2.model.command.admin.training.CreateTrainingRequest;
 import com.blibli.future.phase2.model.response.admin.training.CreateTrainingResponse;
+import com.blibli.future.phase2.repository.TrainingAttendanceRepository;
 import com.blibli.future.phase2.repository.TrainingRepository;
 import com.blibli.future.phase2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,16 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TrainingAttendanceRepository trainingAttendanceRepository;
+
     @Override
     public Mono<CreateTrainingResponse> execute(CreateTrainingRequest request) {
         return Mono.from(checkIfTrainingIsExist(request))
                 .flatMap(result -> (result) ? Mono.just(null) : Mono.just(createTraining(request)))
                 .flatMap(training -> (training == null) ? Mono.just(null) : trainingRepository.save(training))
-                .map(training -> createResponse(HttpStatus.ACCEPTED, "Training has been created"))
+                .flatMap(training -> Mono.just(inputAttendance(training.getBatchId())))
+                .thenReturn(createResponse(HttpStatus.ACCEPTED, "Training has been created"))
                 .onErrorReturn(createResponse(HttpStatus.BAD_REQUEST, "Training cannot be created"));
     }
 
@@ -61,6 +67,28 @@ public class CreateTrainingCommandImpl implements CreateTrainingCommand {
         return Mono.from(trainingRepository.findByBatchIdAndStage(request.getBatchId(), Integer.parseInt(request.getTraining()))
                 .switchIfEmpty(Mono.just(Training.builder().build()))
                 .map(user -> user.getTrainingId() != null));
+    }
+
+    private Boolean inputAttendance(String batchId){
+        userRepository.findAllByBatch(batchId)
+                .map(user -> createAttendance(user))
+                .buffer()
+                .flatMap(attendances -> trainingAttendanceRepository.saveAll(attendances))
+                .then()
+                .subscribe();
+        return Boolean.TRUE;
+    }
+
+    private TrainingAttendance createAttendance(User user){
+        return TrainingAttendance.builder()
+                .id(UUID.randomUUID().toString())
+                .employeeId(user.getUserId())
+                .batchId(user.getBatch())
+                .stage(user.getStage())
+                .division(user.getDivision())
+                .username(user.getUsername())
+                .status(Boolean.FALSE)
+                .build();
     }
 
     private User getTrainerFromId(String trainerId){

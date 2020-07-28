@@ -16,11 +16,15 @@ public class TrainingAttendance {
     @Id
     private String id;
 
-    private String batchName;
+    private String batchId;
 
     private Integer stage;
 
-    private String userId;
+    private String employeeId;
+
+    private String username;
+
+    private String division;
 
     private Boolean status;
 }
