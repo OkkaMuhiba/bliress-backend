@@ -109,9 +109,13 @@ public class ApiPath {
     public static final String EMPLOYEE_NOTIFICATION_CHECK = EMPLOYEE_NOTIFICATION + "/trigger";
     public static final String EMPLOYEE_NOTIFICATION_READ = EMPLOYEE_NOTIFICATION + "";
 
-    // Test
-    public static final String EMPLOYEE_TEST = BASE_EMPLOYEE + "/test";
-
     // Training
     public static final String EMPLOYEE_TRAINING = BASE_EMPLOYEE + "/training";
+    public static final String EMPLOYEE_TRAINING_GET_ALL = EMPLOYEE_TRAINING + "";
+    public static final String EMPLOYEE_TRAINING_SUBMIT_ATTENDANCE = EMPLOYEE_TRAINING + "/attendance";
+    public static final String EMPLOYEE_TRAINING_CHECK_ATTENDANCE = EMPLOYEE_TRAINING + "/attendance";
+    public static final String EMPLOYEE_TRAINING_GET_BY_ID = EMPLOYEE_TRAINING + "/detail";
+
+    // Test
+    public static final String EMPLOYEE_TEST = BASE_EMPLOYEE + "/test";
 }
